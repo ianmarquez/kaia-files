@@ -1,5 +1,5 @@
 Observer.create({
-  target: window,
+  target: document.getElementById("section-track"),
   type: "wheel",
   onChangeY: (self) => {
     document.documentElement.scrollLeft += self.deltaY / 2;
