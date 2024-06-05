@@ -77,7 +77,7 @@ window.onload = function() {
   })
 
   // Begin Vision Animation
-  backgroundTimeline(".vision", true)
+  backgroundTimeline(".vision")
     .fromTo(".vision-background", { x: "-25rem" }, { x: "25rem" })
   // End Vision Animation
 
