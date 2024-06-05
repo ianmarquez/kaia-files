@@ -97,6 +97,8 @@ window.onload = function() {
     }
   })
   // End Footer Animation
+  //
+  backgroundTimeline(".faq").fromTo(".faq-background", { x: "10rem", x: "-10rem" }, { x: 0, y: 0 })
 
   // Vision highlight category and change text while scrolling
   // const categoriesAll = Array.from(document.querySelectorAll(".vision-category"));
