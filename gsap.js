@@ -75,8 +75,8 @@ window.onload = function() {
     scrollTrigger: {
       trigger: ".build",
       scrub: 1,
-      start: "center center",
-      end: "+=300",
+      start: "left center",
+      end: "center center",
       horizontal: true,
     }
   })
