@@ -10,6 +10,10 @@ Observer.create({
 });
 
 window.onload = function() {
+  // Swiper Implementation
+
+  // End Swiper Implementation
+
   const backgroundTimeline = (trigger, markers) => {
     return gsap.timeline({
       scrollTrigger: {
@@ -66,7 +70,28 @@ window.onload = function() {
   }, stagger)
   // End About Section Animation
 
+  // Start Build Section Animation
+  const buildSectionTimeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".build",
+      scrub: 1,
+      start: "center center",
+      end: "+=300",
+      horizontal: true,
+    }
+  })
 
+  buildSectionTimeline
+    .from(".build-left-component", { opacity: 0 })
+    .from(".build-pills.one", { y: "-60rem", opacity: 0, ease: "bounce.out" })
+    .from(".build-circle", { y: "-50rem", opacity: 0, ease: "bounce.out" }, "<")
+    .from(".build-pills.pill-two", { y: "-40rem", opacity: 0, ease: "bounce.out" }, "<")
+    .from(".build-small-pointed-circle", { y: "-30rem", opacity: 0, ease: "bounce.out" }, "<")
+    .from(".semi-circle-container", { y: "-20rem", opacity: 0, ease: "bounce.out" }, "<")
+
+  // End Build Section
+
+  // Begin Vision Animation
   const visionBlocks = gsap.utils.toArray(".vision-block")
   visionBlocks.map((visionBlock, idx) => {
     backgroundTimeline(".vision").fromTo(visionBlock, {
@@ -75,8 +100,6 @@ window.onload = function() {
       x: `${idx + 5}rem`,
     })
   })
-
-  // Begin Vision Animation
   backgroundTimeline(".vision")
     .fromTo(".vision-background", { x: "-25rem" }, { x: "25rem" })
   // End Vision Animation
@@ -86,43 +109,37 @@ window.onload = function() {
   backgroundTimeline(".hangout").fromTo(".hangout-outline-background", { x: "-10rem", x: "10rem" }, { x: 0, y: 0 })
   // End Hangout Animation
 
+  // Begin FAQ Animation
+
+  // End FAQ Animation
+
   // Begin Footer Animation
   const footerTimeline = gsap.timeline({
     scrollTrigger: {
       trigger: ".footer",
       scrub: 1,
-      start: "left",
-      end: "right center",
+      start: "left center",
+      end: "center center",
       horizontal: true,
     }
   })
+  const footerButtons = gsap.utils.toArray(".button.minimal.small.w-button")
+  const footerIcons = gsap.utils.toArray(".footer-icon-characters")
+  const footerFootnote = gsap.utils.toArray(".footer-link")
+
+  footerTimeline
+    .from(footerButtons[0], { opacity: 0, x: "-5rem" })
+    .from(footerButtons[1], { opacity: 0, x: "-5rem" })
+    .from(footerButtons[2], { opacity: 0, x: "-5rem" })
+    .from(footerButtons[3], { opacity: 0, x: "-5rem" })
+    .from(footerIcons[0], { opacity: 0, scale: 0.5 })
+    .from(footerIcons[1], { opacity: 0, scale: 0.5 })
+    .from(footerIcons[2], { opacity: 0, scale: 0.5 })
+    .from(footerIcons[3], { opacity: 0, scale: 0.5 })
+    .from(footerFootnote[0], { opacity: 0, x: "-5rem" })
+    .from(footerFootnote[1], { opacity: 0, x: "-5rem" })
+
+
   // End Footer Animation
-  //
-  backgroundTimeline(".faq").fromTo(".faq-background", { x: "10rem", x: "-10rem" }, { x: 0, y: 0 })
-
-  // Vision highlight category and change text while scrolling
-  // const categoriesAll = Array.from(document.querySelectorAll(".vision-category"));
-  // const headersAll = Array.from(document.querySelectorAll(".vision-text"));
-  //
-  // const categories = categoriesAll.slice(3);
-  // const headers = headersAll.slice(1);
-  //
-  //
-  // function makeItemActive(idx) {
-  //   categories.forEach(category => {
-  //     category.classList.remove("vision-category-active");
-  //   });
-  //   categories[idx]?.classList.add("vision-category-active");
-  //
-  //
-  //   headers.forEach(header => {
-  //     header.classList.remove("vision-text-active");
-  //   });
-  //   headers[idx]?.classList.add("vision-text-active");
-  //
-  // };
-  //
-  // makeItemActive(0);
-
 }
 
