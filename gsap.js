@@ -1,3 +1,11 @@
+Observer.create({
+  target: window,
+  type: "wheel",
+  onChangeY: (self) => {
+    document.documentElement.scrollLeft += self.deltaY / 2;
+  }
+});
+
 
 // Begin Word Rotation Animation
 (function() {
@@ -18,6 +26,7 @@
     stagger: stagger
   }, stagger)
 })()
+
   // End Word Rotation Animation
 
   (function() {
