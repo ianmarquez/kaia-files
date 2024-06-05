@@ -10,9 +10,20 @@ Observer.create({
 });
 
 window.onload = function() {
+  const backgroundTimeline = (trigger, markers) => {
+    return gsap.timeline({
+      scrollTrigger: {
+        trigger,
+        scrub: 1,
+        start: "left",
+        end: "right",
+        ...(!!markers ? { markers: true } : {}),
+        horizontal: true,
+      }
+    })
+  }
 
-
-  // Begin Word Rotation Animation
+  // Begin About Section Animations 
   const [top, baseline, bottom] = gsap.utils.toArray('.outline-container')
   const outlineTimeline = gsap.timeline({
     scrollTrigger: {
@@ -20,7 +31,6 @@ window.onload = function() {
       scrub: 1,
       start: "right center",
       end: "+=900",
-      markers: true,
       horizontal: true,
     }
   })
@@ -30,19 +40,13 @@ window.onload = function() {
   }).to(top, {
     y: "20rem",
     ease: "none"
-  }, "<").to(".about-text-container", {
-    opacity: 50,
-    ease: "linear",
-  }).to(bottom, {
+  }, "<").to(bottom, {
     opacity: 0,
     ease: "none",
   }).to(top, {
     opacity: 0,
     ease: "none"
-  }, "<").to(".about-text-container", {
-    opacity: 100,
-    ease: "linear",
-  })
+  }, "<")
 
   const stagger = 1;
   const wordTimeline = gsap.timeline({
@@ -60,7 +64,7 @@ window.onload = function() {
     opacity: 0,
     stagger: stagger
   }, stagger)
-  // End Word Rotation Animation
+  // End About Section Animation
 
   const logoBlocks = gsap.utils.toArray(".logo-block")
 
@@ -102,6 +106,34 @@ window.onload = function() {
   TweenMax.to(visionBlockFour, 5, { y: `+=${55}`, yoyo: true, repeat: -1 });
   TweenMax.to(visionBlockFour, 8, { x: `+=${49}`, yoyo: true, repeat: -1 })
 
+  // Begin Vision Animation
+  backgroundTimeline(".vision", true)
+    .fromTo(".vision-background", { x: "-25rem" }, { x: "25rem" })
+    .fromTo(".vision-block", {
+      x: "-10rem",
+      y: "-5rem"
+    }, {
+      x: "10rem",
+      y: "5rem"
+    })
+  // End Vision Animation
+
+
+  // Begin Hangout Animation
+  backgroundTimeline(".hangout").fromTo(".hangout-outline-background", { x: "-5rem", y: "5rem" }, { x: 0, y: 0 })
+  // End Hangout Animation
+
+  // Begin Footer Animation
+  const footerTimeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".footer",
+      scrub: 1,
+      start: "left",
+      end: "right center",
+      horizontal: true,
+    }
+  })
+  // End Footer Animation
 
   // Vision highlight category and change text while scrolling
   // const categoriesAll = Array.from(document.querySelectorAll(".vision-category"));
