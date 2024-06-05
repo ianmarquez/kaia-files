@@ -5,24 +5,57 @@ Observer.create({
   target: window,
   type: "wheel",
   onChangeY: (self) => {
-    document.getElementById("section-track").scrollLeft += self.deltaY
+    document.documentElement.scrollLeft += self.deltaY;
   }
 });
 
 window.onload = function() {
+
+
   // Begin Word Rotation Animation
+  const [top, baseline, bottom] = gsap.utils.toArray('.outline-container')
+  const outlineTimeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".intro",
+      scrub: 1,
+      start: "right center",
+      end: "+=900",
+      markers: true,
+      horizontal: true,
+    }
+  })
+  outlineTimeline.to(bottom, {
+    y: "-20rem",
+    ease: "none",
+  }).to(top, {
+    y: "20rem",
+    ease: "none"
+  }, "<").to(".about-text-container", {
+    opacity: 50,
+    ease: "linear",
+  }).to(bottom, {
+    opacity: 0,
+    ease: "none",
+  }).to(top, {
+    opacity: 0,
+    ease: "none"
+  }, "<").to(".about-text-container", {
+    opacity: 100,
+    ease: "linear",
+  })
+
   const stagger = 1;
-  const tl = gsap.timeline({
+  const wordTimeline = gsap.timeline({
     repeat: -1,
   });
 
-  tl.from('.word-rotation-list li', {
+  wordTimeline.from('.word-rotation-list li', {
     y: 120,
     opacity: 0,
     stagger: stagger
   })
 
-  tl.to('.word-rotation-list li', {
+  wordTimeline.to('.word-rotation-list li', {
     y: -120,
     opacity: 0,
     stagger: stagger
@@ -35,9 +68,8 @@ window.onload = function() {
     ScrollTrigger.create({
       target: block,
       trigger: ".logo-blocks",
-      start: "right center",
-      end: "left center",
-      markers: true,
+      start: "right",
+      end: "left",
       horizontal: true,
       onToggle: (self) => {
         console.log("Im active")
@@ -94,27 +126,6 @@ window.onload = function() {
   // };
   //
   // makeItemActive(0);
-
-
-
-  const categories = document.getElementsByClassName("vision-mobile-category-container");
-  const header = document.getElementsByClassName("vision-text");
-
-  categories.forEach(category => {
-    ScrollTrigger.create({
-      trigger: category,
-      start: "left center",
-      end: "right center",
-      horizontal: true,
-      markers: true,
-      onEnter: () => {
-        header.textContent = "Test"
-      },
-      onLeaveBack: () => {
-        header.textContent = category.previousElementSibling ? category.previousElementSibling.getAttribute("data-header") : "Default Header Text";
-      }
-    });
-  });
 
 }
 
