@@ -66,61 +66,24 @@ window.onload = function() {
   }, stagger)
   // End About Section Animation
 
-  const logoBlocks = gsap.utils.toArray(".logo-block")
 
-  logoBlocks.map(block => {
-    ScrollTrigger.create({
-      target: block,
-      trigger: ".logo-blocks",
-      start: "right",
-      end: "left",
-      horizontal: true,
-      onToggle: (self) => {
-        console.log("Im active")
-      }
-    });
+  const visionBlocks = gsap.utils.toArray(".vision-block")
+  visionBlocks.map((visionBlock, idx) => {
+    backgroundTimeline(".vision").fromTo(visionBlock, {
+      x: `-${idx + 5}rem`,
+    }, {
+      x: `${idx + 5}rem`,
+    })
   })
-
-  /* this one doesn't work in a linear fashion */
-  let visionBlockOne = document.getElementById("vision-block-one");
-  TweenMax.to(visionBlockOne, 3, { x: `+=${40}`, yoyo: true, repeat: -1 });
-  TweenMax.to(visionBlockOne, 5, { y: `+=${70}`, yoyo: true, repeat: -1 });
-  TweenMax.to(visionBlockOne, 3, { y: `+=${60}`, yoyo: true, repeat: -1 });
-  TweenMax.to(visionBlockOne, 5, { x: `+=${50}`, yoyo: true, repeat: -1 });
-
-  let visionBlockTwo = document.getElementById("vision-block-two");
-  TweenMax.to(visionBlockTwo, 5, { x: `+=${50}`, yoyo: true, repeat: -1 });
-  TweenMax.to(visionBlockTwo, 3, { y: `+=${60}`, yoyo: true, repeat: -1 });
-  TweenMax.to(visionBlockTwo, 4, { y: `+=${30}`, yoyo: true, repeat: -1 });
-  TweenMax.to(visionBlockTwo, 7, { x: `+=${40}`, yoyo: true, repeat: -1 });
-
-  let visionBlockThree = document.getElementById("vision-block-three");
-  TweenMax.to(visionBlockThree, 4, { x: `+=${40}`, yoyo: true, repeat: -1 });
-  TweenMax.to(visionBlockThree, 5, { y: `+=${70}`, yoyo: true, repeat: -1 });
-  TweenMax.to(visionBlockThree, 7, { y: `+=${50}`, yoyo: true, repeat: -1 });
-  TweenMax.to(visionBlockThree, 5, { x: `+=${55}`, yoyo: true, repeat: -1 })
-
-  let visionBlockFour = document.getElementById("vision-block-four");
-  TweenMax.to(visionBlockFour, 8, { x: `+=${60}`, yoyo: true, repeat: -1 });
-  TweenMax.to(visionBlockFour, 6, { y: `+=${40}`, yoyo: true, repeat: -1 });
-  TweenMax.to(visionBlockFour, 5, { y: `+=${55}`, yoyo: true, repeat: -1 });
-  TweenMax.to(visionBlockFour, 8, { x: `+=${49}`, yoyo: true, repeat: -1 })
 
   // Begin Vision Animation
   backgroundTimeline(".vision", true)
     .fromTo(".vision-background", { x: "-25rem" }, { x: "25rem" })
-    .fromTo(".vision-block", {
-      x: "-10rem",
-      y: "-5rem"
-    }, {
-      x: "10rem",
-      y: "5rem"
-    })
   // End Vision Animation
 
 
   // Begin Hangout Animation
-  backgroundTimeline(".hangout").fromTo(".hangout-outline-background", { x: "-5rem", y: "5rem" }, { x: 0, y: 0 })
+  backgroundTimeline(".hangout").fromTo(".hangout-outline-background", { x: "-10rem", x: "10rem" }, { x: 0, y: 0 })
   // End Hangout Animation
 
   // Begin Footer Animation
