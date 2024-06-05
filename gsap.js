@@ -1,14 +1,15 @@
+gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(Observer)
 
+Observer.create({
+  target: window,
+  type: "wheel",
+  onChangeY: (self) => {
+    document.getElementById("section-track").scrollLeft += self.deltaY
+  }
+});
 
-(function() {
-  Observer.create({
-    target: document.getElementById("section-track"),
-    type: "wheel",
-    onChangeY: (self) => {
-      document.documentElement.scrollLeft += self.deltaY / 2;
-    }
-  });
-
+window.onload = function() {
   // Begin Word Rotation Animation
   const stagger = 1;
   const tl = gsap.timeline({
@@ -28,7 +29,21 @@
   }, stagger)
   // End Word Rotation Animation
 
+  const logoBlocks = gsap.utils.toArray(".logo-block")
 
+  logoBlocks.map(block => {
+    ScrollTrigger.create({
+      target: block,
+      trigger: ".logo-blocks",
+      start: "right center",
+      end: "left center",
+      markers: true,
+      horizontal: true,
+      onToggle: (self) => {
+        console.log("Im active")
+      }
+    });
+  })
 
   /* this one doesn't work in a linear fashion */
   let visionBlockOne = document.getElementById("vision-block-one");
@@ -57,64 +72,49 @@
 
 
   // Vision highlight category and change text while scrolling
-  const categoriesAll = Array.from(document.querySelectorAll(".vision-category"));
-  const headersAll = Array.from(document.querySelectorAll(".vision-text"));
+  // const categoriesAll = Array.from(document.querySelectorAll(".vision-category"));
+  // const headersAll = Array.from(document.querySelectorAll(".vision-text"));
+  //
+  // const categories = categoriesAll.slice(3);
+  // const headers = headersAll.slice(1);
+  //
+  //
+  // function makeItemActive(idx) {
+  //   categories.forEach(category => {
+  //     category.classList.remove("vision-category-active");
+  //   });
+  //   categories[idx]?.classList.add("vision-category-active");
+  //
+  //
+  //   headers.forEach(header => {
+  //     header.classList.remove("vision-text-active");
+  //   });
+  //   headers[idx]?.classList.add("vision-text-active");
+  //
+  // };
+  //
+  // makeItemActive(0);
 
-  const categories = categoriesAll.slice(3);
-  const headers = headersAll.slice(1);
-  console.log(headers)
-  console.log(categories)
 
 
-  function makeItemActive(idx) {
-    categories.forEach(category => {
-      category.classList.remove("vision-category-active");
-    });
-    categories[idx]?.classList.add("vision-category-active");
+  const categories = document.getElementsByClassName("vision-mobile-category-container");
+  const header = document.getElementsByClassName("vision-text");
 
-
-    headers.forEach(header => {
-      header.classList.remove("vision-text-active");
-    });
-    headers[idx]?.classList.add("vision-text-active");
-
-  };
-
-  makeItemActive(0);
-
-  categories.forEach((category, idx) => {
+  categories.forEach(category => {
     ScrollTrigger.create({
       trigger: category,
       start: "left center",
       end: "right center",
+      horizontal: true,
       markers: true,
-      onToggle: (self) => {
-        if (self.isActive) {
-          makeItemActive(idx);
-        }
+      onEnter: () => {
+        header.textContent = "Test"
+      },
+      onLeaveBack: () => {
+        header.textContent = category.previousElementSibling ? category.previousElementSibling.getAttribute("data-header") : "Default Header Text";
       }
     });
   });
 
+}
 
-  /* const categories = document.getElementsByClassName("vision-mobile-category-container");
-  const header = document.getElementsByClassName("vision-text");
-  
-      categories.forEach(category => {
-        ScrollTrigger.create({
-          trigger: category,
-          start: "left center",
-          end: "right center",
-          onEnter: () => {
-  //          header.textContent = category.getAttribute("data-header");
-          header.textContent = "Test"
-          },
-          onLeaveBack: () => {
-            // Optionally reset the header text or handle differently when scrolling back
-            header.textContent = category.previousElementSibling ? category.previousElementSibling.getAttribute("data-header") : "Default Header Text";
-          }
-        });
-      });
-  */
-
-})()

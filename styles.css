@@ -1,4 +1,4 @@
-.section.track {
-  overflow-y: hidden;
-  overflow-x: scroll;
+.home-page-body {
+  overflow-y: hidden !important;
+  height: 100vh !important;
 }
