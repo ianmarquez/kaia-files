@@ -1,0 +1,4 @@
+.section.track {
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
