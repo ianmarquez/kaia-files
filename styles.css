@@ -1,7 +1,7 @@
 .home-page-body {
-  overflow-y: hidden !important;
-  height: 100%;
-  overscroll-behavior: none;
+	overflow-y: hidden !important;
+	height: 100%;
+	overscroll-behavior: none;
 }
 
 .hangout-outline-background {
