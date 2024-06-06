@@ -360,9 +360,10 @@ window.onload = function() {
     gsap.timeline({
       scrollTrigger: {
         trigger: category,
-        start: `left center`,
+        start: `left left`,
         end: `center+=${offset} center`,
         horizontal: true,
+        markers: true,
         scrub: 1,
       },
     }).to(category, {
