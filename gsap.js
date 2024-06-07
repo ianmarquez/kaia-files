@@ -15,6 +15,28 @@ const colors = {
 };
 
 window.onload = function() {
+  document.body.style.overflow = "hidden"
+  const desktopVideo = document.getElementById('desktop-video-element')
+  desktopVideo.playbackRate = 2
+  const tabletVideo = document.getElementById('tablet-video-element')
+  tabletVideo.playbackRate = 2
+  const mobileVideo = document.getElementById('mobile-video-element')
+  mobileVideo.playbackRate = 2
+  setTimeout(() => {
+    document.body.style.overflow = ""
+    gsap.timeline().fromTo("#scroll-cta-marker", {
+      opacity: 0,
+      scale: 1
+    }, {
+      opacity: 100,
+      scale: 1.25
+    }).to("#scroll-cta-marker", {
+      scale: 1
+    }).repeat(-1)
+    gsap.to(desktopVideo, {
+      backgroundColor: "transparent"
+    })
+  }, 5000)
   // Swiper Implementation
 
   // End Swiper Implementation
@@ -292,7 +314,7 @@ window.onload = function() {
                 y: -40,
                 duration: 0.2,
                 onComplete: () => {
-                  roadmapText[idx + 1].classList.add(
+                  roadmapText[idx + 1]?.classList.add(
                     "roadmap-subheader-active"
                   );
                   gsap.to(roadmapText[idx + 1], {
