@@ -1,22 +1,26 @@
 .home-page-body {
-  overflow-y: hidden !important;
-  height: 100%;
-  overscroll-behavior: none;
+	overflow-y: hidden !important;
+	height: 100%;
+	overscroll-behavior: none;
 }
 
 @media only screen and (max-width: 524px) {
-  .home-page-body {
-    width: 100%;
-    overflow-y: scroll !important;
-    overflow-x: hidden !important;
-  }
-  .vision {
-    overflow-y: hidden;
-  }
+	.home-page-body {
+		width: 100%;
+		overflow-y: scroll !important;
+		overflow-x: hidden !important;
+	}
+	.vision {
+		overflow-y: hidden;
+	}
 }
 
 .hangout-outline-background {
-  animation: svg-shadow 1.5s ease-in-out infinite alternate;
+	animation: svg-shadow 1.5s ease-in-out infinite alternate;
+}
+
+.roadmap-rings {
+	transform-origin: center;
 }
 
 /* @keyframes svg-shadow { */
