@@ -1,7 +1,15 @@
 .home-page-body {
-  overflow-y: hidden !important;
+  overflow: hidden;
   height: 100%;
-  overscroll-behavior: none;
+}
+
+.faq-item {
+  border: "1px solid";
+  border-color: "#FFFFFF";
+}
+
+.vision-block {
+  display: none !important;
 }
 
 @media only screen and (min-width: 3840px) {
@@ -20,7 +28,10 @@
   }
 }
 
-@media only screen and (max-width: 524px) {
+@media only screen and (max-width: 525px) {
+  .content {
+    overflow-y: hidden !important;
+  }
   .home-page-body {
     width: 100%;
     overflow-y: scroll !important;
