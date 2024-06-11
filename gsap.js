@@ -256,208 +256,208 @@ window.onload = function() {
   // End Footer Animation
 
   //! <------------------------------------ Roadmap Section ------------------------------------>
-  const roadmapText = document.querySelectorAll(".roadmap-subheader");
-  const milestoneHeaders = document.querySelectorAll(
-    ".roadmap .milestone-header"
-  );
-  const shortVerticalLines = document.querySelectorAll(
-    ".roadmap .short-vertical-line"
-  );
-  const longVerticalLines = document.querySelectorAll(
-    ".roadmap .long-vertical-line"
-  );
-  const checkIcons = document.querySelectorAll(".roadmap .check-icon");
-
-  checkIcons.forEach((checkIcon) => {
-    gsap.to(checkIcon, {
-      scrollTrigger: {
-        trigger: checkIcon,
-        start: "left 20%",
-        end: "right 20%",
-        horizontal: true,
-        scrub: 1,
-        onEnter: () => {
-          gsap.to(checkIcon, {
-            opacity: 1,
-            duration: 0.2,
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to(checkIcon, {
-            opacity: 0,
-            duration: 0.2,
-          });
-        },
-      },
-    });
-  });
-
-  shortVerticalLines.forEach((line) => {
-    gsap.to(line, {
-      scrollTrigger: {
-        trigger: line,
-        start: "left 20%",
-        end: "right 20%",
-        horizontal: true,
-        scrub: 1,
-        onEnter: () => {
-          line.style.opacity = 0.5;
-        },
-        onLeaveBack: () => {
-          line.style.opacity = 0.24;
-        },
-      },
-    });
-  });
-  longVerticalLines.forEach((line) => {
-    gsap.to(line, {
-      scrollTrigger: {
-        trigger: line,
-        start: "left 20%",
-        end: "right 20%",
-        horizontal: true,
-        scrub: 1,
-        onEnter: () => {
-          gsap.to(line, {
-            y: 10,
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to(line, {
-            y: 0,
-          });
-        },
-      },
-    });
-  });
-
-  milestoneHeaders.forEach((milestone, idx) => {
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: milestone,
-        start: "left 20%",
-        end: "right 20%",
-        horizontal: true,
-        scrub: 1,
-        onEnter: () => {
-          // Animate milestone
-          gsap.to(milestone, {
-            duration: 0.2,
-            onComplete: () => {
-              milestone.classList.add("milestone-active");
-              gsap.set(milestone, { clearProps: "backgroundColor" });
-            },
-          });
-          // Animate text change
-          gsap.to(roadmapText[idx], {
-            opacity: 1,
-            y: 40,
-            duration: 0.2,
-          });
-        },
-        onEnterBack: () => {
-          gsap.to(roadmapText[idx], {
-            opacity: 1,
-            y: 40,
-          });
-        },
-        onLeave: () => {
-          // Animate milestone
-          gsap.to(milestone, {});
-
-          // Animate text change back
-          gsap.to(roadmapText[idx], {
-            opacity: 0,
-            y: -40,
-            duration: 0.2,
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to(milestone, {
-            duration: 0.2,
-
-            onComplete: () => {
-              milestone.classList.remove("milestone-active");
-              gsap.set(milestone, { clearProps: "backgroundColor" });
-            },
-          });
-
-          gsap.to(roadmapText[idx], {
-            opacity: 0,
-            y: -40,
-          });
-        },
-      },
-    });
-  });
-
-  gsap.set(".roadmap-ring", { xPercent: -50 });
-
-  const roadmapRings = document.querySelectorAll(".roadmap-ring");
-
-  roadmapRings.forEach((ring, idx) => {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: ring,
-          scrub: 0.2,
-          start: "left right",
-          end: "+=10000",
-          horizontal: true,
-        },
-      })
-      .to(ring, {
-        rotation: 360 * (idx + 5),
-        duration: 1,
-        ease: "none",
-      });
-  });
-
-  gsap.fromTo(
-    ".roadmap-rings",
-    { x: "-100%", opacity: 0 },
-    {
-      x: "0%",
-      opacity: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".roadmap-rings",
-        start: "left 50%",
-        end: "left 20%",
-        scrub: true,
-        horizontal: true,
-      },
-    }
-  );
-
-  gsap.from(".roadmap-header", {
-    opacity: 0,
-    y: 100,
-    ease: "power2.out",
-    scrollTrigger: {
-      trigger: ".roadmap-header",
-      start: "left 80%",
-      end: "left 50%",
-      scrub: true,
-      horizontal: true,
-    },
-  });
-
-  const milestones = gsap.utils.toArray(".milestone-header");
-  milestones.forEach((milestone) => {
-    gsap.from(milestone, {
-      opacity: 0,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: milestone,
-        start: "left 80%",
-        end: "left 50%",
-        scrub: true,
-        horizontal: true,
-      },
-    });
-  });
-
+  // const roadmapText = document.querySelectorAll(".roadmap-subheader");
+  // const milestoneHeaders = document.querySelectorAll(
+  //   ".roadmap .milestone-header"
+  // );
+  // const shortVerticalLines = document.querySelectorAll(
+  //   ".roadmap .short-vertical-line"
+  // );
+  // const longVerticalLines = document.querySelectorAll(
+  //   ".roadmap .long-vertical-line"
+  // );
+  // const checkIcons = document.querySelectorAll(".roadmap .check-icon");
+  //
+  // checkIcons.forEach((checkIcon) => {
+  //   gsap.to(checkIcon, {
+  //     scrollTrigger: {
+  //       trigger: checkIcon,
+  //       start: "left 20%",
+  //       end: "right 20%",
+  //       horizontal: true,
+  //       scrub: 1,
+  //       onEnter: () => {
+  //         gsap.to(checkIcon, {
+  //           opacity: 1,
+  //           duration: 0.2,
+  //         });
+  //       },
+  //       onLeaveBack: () => {
+  //         gsap.to(checkIcon, {
+  //           opacity: 0,
+  //           duration: 0.2,
+  //         });
+  //       },
+  //     },
+  //   });
+  // });
+  //
+  // shortVerticalLines.forEach((line) => {
+  //   gsap.to(line, {
+  //     scrollTrigger: {
+  //       trigger: line,
+  //       start: "left 20%",
+  //       end: "right 20%",
+  //       horizontal: true,
+  //       scrub: 1,
+  //       onEnter: () => {
+  //         line.style.opacity = 0.5;
+  //       },
+  //       onLeaveBack: () => {
+  //         line.style.opacity = 0.24;
+  //       },
+  //     },
+  //   });
+  // });
+  // longVerticalLines.forEach((line) => {
+  //   gsap.to(line, {
+  //     scrollTrigger: {
+  //       trigger: line,
+  //       start: "left 20%",
+  //       end: "right 20%",
+  //       horizontal: true,
+  //       scrub: 1,
+  //       onEnter: () => {
+  //         gsap.to(line, {
+  //           y: 10,
+  //         });
+  //       },
+  //       onLeaveBack: () => {
+  //         gsap.to(line, {
+  //           y: 0,
+  //         });
+  //       },
+  //     },
+  //   });
+  // });
+  //
+  // milestoneHeaders.forEach((milestone, idx) => {
+  //   gsap.timeline({
+  //     scrollTrigger: {
+  //       trigger: milestone,
+  //       start: "left 20%",
+  //       end: "right 20%",
+  //       horizontal: true,
+  //       scrub: 1,
+  //       onEnter: () => {
+  //         // Animate milestone
+  //         gsap.to(milestone, {
+  //           duration: 0.2,
+  //           onComplete: () => {
+  //             milestone.classList.add("milestone-active");
+  //             gsap.set(milestone, { clearProps: "backgroundColor" });
+  //           },
+  //         });
+  //         // Animate text change
+  //         gsap.to(roadmapText[idx], {
+  //           opacity: 1,
+  //           y: 40,
+  //           duration: 0.2,
+  //         });
+  //       },
+  //       onEnterBack: () => {
+  //         gsap.to(roadmapText[idx], {
+  //           opacity: 1,
+  //           y: 40,
+  //         });
+  //       },
+  //       onLeave: () => {
+  //         // Animate milestone
+  //         gsap.to(milestone, {});
+  //
+  //         // Animate text change back
+  //         gsap.to(roadmapText[idx], {
+  //           opacity: 0,
+  //           y: -40,
+  //           duration: 0.2,
+  //         });
+  //       },
+  //       onLeaveBack: () => {
+  //         gsap.to(milestone, {
+  //           duration: 0.2,
+  //
+  //           onComplete: () => {
+  //             milestone.classList.remove("milestone-active");
+  //             gsap.set(milestone, { clearProps: "backgroundColor" });
+  //           },
+  //         });
+  //
+  //         gsap.to(roadmapText[idx], {
+  //           opacity: 0,
+  //           y: -40,
+  //         });
+  //       },
+  //     },
+  //   });
+  // });
+  //
+  // gsap.set(".roadmap-ring", { xPercent: -50 });
+  //
+  // const roadmapRings = document.querySelectorAll(".roadmap-ring");
+  //
+  // roadmapRings.forEach((ring, idx) => {
+  //   gsap
+  //     .timeline({
+  //       scrollTrigger: {
+  //         trigger: ring,
+  //         scrub: 0.2,
+  //         start: "left right",
+  //         end: "+=10000",
+  //         horizontal: true,
+  //       },
+  //     })
+  //     .to(ring, {
+  //       rotation: 360 * (idx + 5),
+  //       duration: 1,
+  //       ease: "none",
+  //     });
+  // });
+  //
+  // gsap.fromTo(
+  //   ".roadmap-rings",
+  //   { x: "-100%", opacity: 0 },
+  //   {
+  //     x: "0%",
+  //     opacity: 1,
+  //     ease: "power2.out",
+  //     scrollTrigger: {
+  //       trigger: ".roadmap-rings",
+  //       start: "left 50%",
+  //       end: "left 20%",
+  //       scrub: true,
+  //       horizontal: true,
+  //     },
+  //   }
+  // );
+  //
+  // gsap.from(".roadmap-header", {
+  //   opacity: 0,
+  //   y: 100,
+  //   ease: "power2.out",
+  //   scrollTrigger: {
+  //     trigger: ".roadmap-header",
+  //     start: "left 80%",
+  //     end: "left 50%",
+  //     scrub: true,
+  //     horizontal: true,
+  //   },
+  // });
+  //
+  // const milestones = gsap.utils.toArray(".milestone-header");
+  // milestones.forEach((milestone) => {
+  //   gsap.from(milestone, {
+  //     opacity: 0,
+  //     ease: "power2.out",
+  //     scrollTrigger: {
+  //       trigger: milestone,
+  //       start: "left 80%",
+  //       end: "left 50%",
+  //       scrub: true,
+  //       horizontal: true,
+  //     },
+  //   });
+  // });
+  //
   //! <------------------------------------ Partners Section ------------------------------------>
   // gsap.from(".partners-cards", {
   //   rotationX: 90,
@@ -793,7 +793,7 @@ window.onload = function() {
       const children = gsap.utils.toArray(faqList[faqIndex].children);
       if (children.length > 0) {
         children.map((item, idx) => {
-          openFAQItem(item, idx, children);
+          FAQItemOnClick(item, idx, children);
         });
       }
     }
@@ -843,7 +843,7 @@ window.onload = function() {
       })
     }
 
-    function openFAQItem(item, index, items) {
+    function FAQItemOnClick(item, index, items) {
       let isOpen = false;
       const [container] = gsap.utils.toArray(item.children);
       const [header, content] = gsap.utils.toArray(container.children);
@@ -900,12 +900,11 @@ window.onload = function() {
         }
         isOpen = !isOpen;
       };
-      item.addEventListener("click", onAccordionClick)
+      item.onclick = onAccordionClick
     }
 
     faqFilterChip.map((filterChip, idx) => {
       filterChip.addEventListener("click", () => {
-        console.log(selectedIndex)
         attachGsapFAQEvents(idx)
       });
     });
