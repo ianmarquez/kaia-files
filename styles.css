@@ -1,31 +1,58 @@
-.home-page-body {
-  overflow: hidden;
-  height: 100%;
+html,
+body {
+  overscroll-behavior: none;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 
-.faq-item {
-  border: "1px solid";
-  border-color: "#FFFFFF";
+html ::-webkit-scrollbar,
+body ::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
-.vision-block {
-  display: none !important;
-}
-
-@media only screen and (min-width: 3840px) {
+@media only screen and (min-width: 5120px) {
   html {
-    font-size: 24px !important;
+    font-size: 34px !important;
+  }
+}
+
+@media only screen and (min-width: 3840px) and (max-width: 5119px) {
+  html {
+    font-size: 34px !important;
   }
 }
 @media only screen and (min-width: 3008px) and (max-width: 3839) {
   html {
-    font-size: 22px !important;
+    font-size: 28px !important;
   }
 }
 @media only screen and (min-width: 2048px) and (max-width: 3007) {
   html {
-    font-size: 18px !important;
+    font-size: 24px !important;
   }
+}
+
+.home-page-body {
+  overflow-y: hidden;
+  overflow-x: scroll;
+  height: 100%;
+}
+
+.info {
+  overflow-y: hidden;
+}
+
+.faq-item {
+  border: "1px solid" !important;
+  border-color: "#FFFFFF" !important;
+  overflow: hidden;
+}
+.faq-tabs-menu {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.faq-tabs-menu ::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
 @media only screen and (max-width: 525px) {
