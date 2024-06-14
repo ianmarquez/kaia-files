@@ -750,8 +750,8 @@ window.onload = function() {
     gsap.to(checkIcon, {
       scrollTrigger: {
         trigger: checkIcon,
-        start: "left 20%",
-        end: "right 20%",
+        start: "left 10%",
+        end: "right 10%",
         horizontal: true,
         scrub: 1,
         ...(isMobile && { scroller: ".roadmap-container" }),
@@ -775,8 +775,8 @@ window.onload = function() {
     gsap.to(line, {
       scrollTrigger: {
         trigger: line,
-        start: "left 20%",
-        end: "right 20%",
+        start: "left 10%",
+        end: "right 10%",
         horizontal: true,
         scrub: 1,
         ...(isMobile && { scroller: ".roadmap-container" }),
@@ -793,8 +793,8 @@ window.onload = function() {
     gsap.to(line, {
       scrollTrigger: {
         trigger: line,
-        start: "left 20%",
-        end: "right 20%",
+        start: "left 10%",
+        end: "right 10%",
         horizontal: true,
         scrub: 1,
         ...(isMobile && { scroller: ".roadmap-container" }),
@@ -817,25 +817,21 @@ window.onload = function() {
       scrollTrigger: {
         trigger: milestone,
         horizontal: true,
-        start: "left 17%",
-        end: "right 17%",
+        start: "left 10%",
+        end: "right 10%",
         scrub: 1,
         ...(isMobile && { scroller: ".roadmap-container" }),
         onEnter: () => {
           // Animate milestone
-          gsap.to(milestone, {
-            duration: 0.2,
+          gsap.timeline().to(milestone, {
             onComplete: () => {
               milestone.classList.add("milestone-active");
               gsap.set(milestone, { clearProps: "backgroundColor" });
             },
-          });
-          // Animate text change
-          gsap.to(roadmapText[idx], {
+          }).to(roadmapText[idx], {
             opacity: 1,
             y: 40,
-            duration: 0.2,
-          });
+          }, "<");
         },
         onEnterBack: () => {
           gsap.to(roadmapText[idx], {
@@ -845,29 +841,21 @@ window.onload = function() {
         },
         onLeave: () => {
           // Animate milestone
-          gsap.to(milestone, {});
-
-          // Animate text change back
-          gsap.to(roadmapText[idx], {
+          gsap.timeline().to(milestone, {}).to(roadmapText[idx], {
             opacity: 0,
             y: -40,
-            duration: 0.1,
-          });
+          }, "<");
         },
         onLeaveBack: () => {
-          gsap.to(milestone, {
-            duration: 0.2,
-
+          gsap.timeline().to(milestone, {
             onComplete: () => {
               milestone.classList.remove("milestone-active");
               gsap.set(milestone, { clearProps: "backgroundColor" });
             },
-          });
-
-          gsap.to(roadmapText[idx], {
+          }).to(roadmapText[idx], {
             opacity: 0,
             y: -40,
-          });
+          }, "<");
         },
       },
     });
