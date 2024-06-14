@@ -57,7 +57,7 @@ window.onload = function() {
         .to("#scroll-cta-marker", {
           scale: 1,
         })
-        .repeat(-1);
+        .repeat(2);
       gsap.to(desktopVideo, {
         backgroundColor: "transparent",
       });
@@ -1011,10 +1011,31 @@ window.onload = function() {
       scrub: 2,
     });
   };
-  LogoBlocksLottie();
+  // LogoBlocksLottie();
 
   //! <------------------------------------ FAQ Section ------------------------------------>
   const FAQ = () => {
+
+    const FAQAnimateTimeline = gsap.timeline({
+      scrollTrigger: {
+        markers: true,
+        trigger: ".faq",
+        start: "left center",
+        end: `right${isMobile ? "+=100" : "-=500"} center`,
+        horizontal: !isMobile,
+        scrub: 1
+      },
+    })
+
+    FAQAnimateTimeline.from('.faq-container', {
+      duration: 9.5,
+      opacity: 0,
+      scale: 0.9,
+    }).to(".faq-container", {
+      duration: 0.5,
+      opacity: 0,
+      scale: 0.9,
+    })
     let selectedIndex = 0;
     let faqFilterChip = gsap.utils.toArray(".faq-filter-chip");
 
@@ -1075,6 +1096,7 @@ window.onload = function() {
 
     function FAQItemOnClick(item, index, items) {
       let isOpen = false;
+      console.log(item)
       const [container] = gsap.utils.toArray(item.children);
       const [header, content] = gsap.utils.toArray(container.children);
       const [title, icon] = gsap.utils.toArray(header.children);
@@ -1130,7 +1152,8 @@ window.onload = function() {
         }
         isOpen = !isOpen;
       };
-      item.onclick = onAccordionClick;
+      title.onclick = onAccordionClick;
+      icon.onclick = onAccordionClick;
     }
 
     faqFilterChip.map((filterChip, idx) => {
