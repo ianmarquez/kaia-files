@@ -817,8 +817,8 @@ window.onload = function() {
       scrollTrigger: {
         trigger: milestone,
         horizontal: true,
-        start: "left 15%",
-        end: "right 15%",
+        start: "left 17%",
+        end: "right 17%",
         scrub: 1,
         ...(isMobile && { scroller: ".roadmap-container" }),
         onEnter: () => {
