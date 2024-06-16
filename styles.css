@@ -1,103 +1,76 @@
 html,
 body {
-	overscroll-behavior: none;
-	-ms-overflow-style: none; /* Internet Explorer 10+ */
-	scrollbar-width: none; /* Firefox */
-	-webkit-touch-callout: none; /* iOS Safari */
-	-webkit-user-select: none; /* Safari */
-	-khtml-user-select: none; /* Konqueror HTML */
-	-moz-user-select: none; /* Old versions of Firefox */
-	-ms-user-select: none; /* Internet Explorer/Edge */
-	user-select: none; /* Non-prefixed version, currently
+  height: 100vh;
+  height: 100vh;
+  overscroll-behavior: none;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
 html ::-webkit-scrollbar,
 body ::-webkit-scrollbar {
-	display: none; /* Safari and Chrome */
+  display: none;
+}
+
+.view {
+  overflow-y: hidden;
 }
 
 @media only screen and (min-width: 5120px) {
-	html {
-		font-size: 34px !important;
-	}
+  html {
+    font-size: 34px !important;
+  }
 }
 
 @media only screen and (min-width: 3840px) and (max-width: 5119px) {
-	html {
-		font-size: 34px !important;
-	}
+  html {
+    font-size: 34px !important;
+  }
 }
 @media only screen and (min-width: 3008px) and (max-width: 3839) {
-	html {
-		font-size: 28px !important;
-	}
+  html {
+    font-size: 28px !important;
+  }
 }
 @media only screen and (min-width: 2048px) and (max-width: 3007) {
-	html {
-		font-size: 24px !important;
-	}
-}
-
-.home-page-body {
-	overflow-y: hidden;
-	overflow-x: scroll;
-	height: 100%;
-}
-
-.info {
-	overflow-y: hidden;
+  html {
+    font-size: 24px !important;
+  }
 }
 
 .faq-item {
-	border: "1px solid" !important;
-	border-color: "#FFFFFF" !important;
-	overflow: hidden;
+  overflow: hidden;
 }
 .faq-tabs-menu {
-	-ms-overflow-style: none; /* Internet Explorer 10+ */
-	scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 .faq-tabs-menu ::-webkit-scrollbar {
-	display: none; /* Safari and Chrome */
+  display: none; /* Safari and Chrome */
 }
 
 @media only screen and (max-width: 525px) {
-	.content {
-		overflow-y: hidden !important;
-	}
-	.home-page-body {
-		width: 100%;
-		overflow-y: scroll !important;
-		overflow-x: hidden !important;
-	}
-	.vision {
-		overflow-y: hidden;
-	}
-}
-
-.hangout-outline-background {
-	animation: svg-shadow 1.5s ease-in-out infinite alternate;
+  .content {
+    overflow-y: hidden !important;
+  }
+  .view {
+    overflow-y: scroll !important;
+  }
 }
 
 .roadmap-rings {
-	transform-origin: center;
+  transform-origin: center;
 }
 
 .sticky {
-	position: fixed;
-	top: 0;
-	width: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
-
-/* @keyframes svg-shadow { */
-/*   from { */
-/*     filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 15px #40c96e) */
-/*       drop-shadow(0 0 20px #40c96e); */
-/*   } */
-/**/
-/*   to { */
-/*     filter: drop-shadow(0 0 20px #fff) drop-shadow(0 0 25px #40c96e) */
-/*       drop-shadow(0 0 40px #40c96e); */
-/*   } */
-/* } */

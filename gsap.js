@@ -13,6 +13,7 @@ window.onload = function() {
     return gsap.timeline({
       scrollTrigger: {
         trigger,
+        scroller: ".view",
         scrub: 1,
         start: "left",
         end: "right",
@@ -24,10 +25,11 @@ window.onload = function() {
 
   if (!isMobile) {
     Observer.create({
-      target: window,
+      target: document.querySelector('.view'),
       type: "wheel",
       onChangeY: (self) => {
-        document.documentElement.scrollLeft += self.deltaY;
+        console.log(self)
+        self.target.scrollLeft += self.deltaY;
       },
     });
   }
@@ -77,6 +79,7 @@ window.onload = function() {
         scrub: 1,
         start: "right center",
         end: "+=700",
+        scroller: ".view",
         horizontal: !isMobile,
       },
     });
@@ -166,6 +169,7 @@ window.onload = function() {
         scrub: 1,
         start: "left center",
         end: "center center",
+        scroller: ".view",
         horizontal: !isMobile,
       },
     });
@@ -213,6 +217,7 @@ window.onload = function() {
       scrub: 1,
       start: !isMobile ? "left 30%" : "-10% top",
       ...(!isMobile ? { end: "left 20%" } : {}),
+      scroller: ".view",
       horizontal: !isMobile,
     },
   });
@@ -246,6 +251,7 @@ window.onload = function() {
         start: "left 50%",
         end: "left 20%",
         scrub: true,
+        scroller: ".view",
         horizontal: true,
       },
     });
@@ -274,6 +280,7 @@ window.onload = function() {
         repeat: config.repeat,
         paused: config.paused,
         defaults: { ease: "none" },
+        scroller: ".view",
         onReverseComplete: () =>
           tl.totalTime(tl.rawTime() + tl.duration() * 100),
       }),
@@ -608,6 +615,7 @@ window.onload = function() {
               end: "+=800",
               horizontal: true,
               scrub: 1,
+              scroller: ".view",
               anticipatePin: 1,
             },
           })
@@ -652,6 +660,7 @@ window.onload = function() {
               start: "left 25%",
               end: "right 25%",
               horizontal: true,
+              scroller: ".view",
               scrub: 1,
               anticipatePin: 1,
               scroller: ".vision-container",
@@ -700,6 +709,7 @@ window.onload = function() {
           scrub: 1,
           start: "left",
           end: "right",
+          scroller: ".view",
           ...(!!markers ? { markers: true } : {}),
           horizontal: true,
 
@@ -752,6 +762,7 @@ window.onload = function() {
         trigger: checkIcon,
         start: "left 10%",
         end: "right 10%",
+        scroller: ".view",
         horizontal: true,
         scrub: 1,
         ...(isMobile && { scroller: ".roadmap-container" }),
@@ -778,6 +789,7 @@ window.onload = function() {
         start: "left 10%",
         end: "right 10%",
         horizontal: true,
+        scroller: ".view",
         scrub: 1,
         ...(isMobile && { scroller: ".roadmap-container" }),
         onEnter: () => {
@@ -795,6 +807,7 @@ window.onload = function() {
         trigger: line,
         start: "left 10%",
         end: "right 10%",
+        scroller: ".view",
         horizontal: true,
         scrub: 1,
         ...(isMobile && { scroller: ".roadmap-container" }),
@@ -816,6 +829,7 @@ window.onload = function() {
     gsap.timeline({
       scrollTrigger: {
         trigger: milestone,
+        scroller: ".view",
         horizontal: true,
         start: "left 10%",
         end: "right 10%",
@@ -871,6 +885,7 @@ window.onload = function() {
         scrollTrigger: {
           trigger: ring,
           scrub: 0.2,
+          scroller: ".view",
           start: "left right",
           end: "+=10000",
           horizontal: true,
@@ -894,6 +909,7 @@ window.onload = function() {
       scrollTrigger: {
         trigger: ".roadmap-rings",
         start: "left 50%",
+        scroller: ".view",
         end: "left 20%",
         scrub: true,
         horizontal: !isMobile,
@@ -907,6 +923,7 @@ window.onload = function() {
     ease: "power2.out",
     scrollTrigger: {
       trigger: ".roadmap-header",
+      scroller: ".view",
       start: "left 80%",
       end: "left 50%",
       scrub: true,
@@ -921,6 +938,7 @@ window.onload = function() {
       ease: "power2.out",
       scrollTrigger: {
         trigger: milestone,
+        scroller: ".view",
         start: "left 80%",
         end: "left 50%",
         scrub: true,
@@ -1016,26 +1034,30 @@ window.onload = function() {
   //! <------------------------------------ FAQ Section ------------------------------------>
   const FAQ = () => {
 
-    const FAQAnimateTimeline = gsap.timeline({
-      scrollTrigger: {
-        markers: true,
-        trigger: ".faq",
-        start: "left center",
-        end: `right${isMobile ? "+=100" : "-=500"} center`,
-        horizontal: !isMobile,
-        scrub: 1
-      },
-    })
-
-    FAQAnimateTimeline.from('.faq-container', {
-      duration: 9.5,
-      opacity: 0,
-      scale: 0.9,
-    }).to(".faq-container", {
-      duration: 0.5,
-      opacity: 0,
-      scale: 0.9,
-    })
+    // const FAQAnimateTimeline = gsap.timeline({
+    //   scrollTrigger: {
+    //     trigger: ".faq",
+    //     start: "left center",
+    //     end: `right${isMobile ? "+=100" : "-=500"} center`,
+    //     horizontal: !isMobile,
+    //     scrub: 1
+    //   },
+    // })
+    //
+    // FAQAnimateTimeline.from('.faq-container', {
+    //   duration: 0.5,
+    //   opacity: 0,
+    //   scale: 0.9,
+    //   onStart: () => {
+    //     attachGsapFAQEvents(0);
+    //   }
+    // }).to(".faq-container", {
+    //   duration: 9
+    // }).to(".faq-container", {
+    //   duration: 0.5,
+    //   opacity: 0,
+    //   scale: 0.9,
+    // })
     let selectedIndex = 0;
     let faqFilterChip = gsap.utils.toArray(".faq-filter-chip");
 
@@ -1161,7 +1183,6 @@ window.onload = function() {
         attachGsapFAQEvents(idx);
       });
     });
-    attachGsapFAQEvents(0);
   };
   FAQ();
 
@@ -1169,6 +1190,7 @@ window.onload = function() {
     const hangoutTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: ".hangout-container",
+        scroller: ".view",
         horizontal: !isMobile,
         scrub: 2,
         start: `left-=${isMobile ? 100 : 300}px center`,
