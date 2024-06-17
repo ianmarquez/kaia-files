@@ -102,6 +102,19 @@ Galazy Z fold 5 882 x 344
 */
 
 @media only screen and (max-width: 933px) and (min-width: 769px) {
+  .socials-container {
+    padding: 3.125rem 3.125rem 0 0;
+  }
+  .scroll-cta-contents {
+    align-items: center;
+  }
+  .scroll-cta-container {
+    justify-content: center;
+    padding-bottom: 4.125rem;
+    padding-left: 10rem;
+    padding-right: 10rem;
+  }
+
   .about-outline-container {
     grid-column-gap: 5rem;
     grid-row-gap: 5rem;
