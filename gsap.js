@@ -7,6 +7,9 @@ const colors = {
 };
 
 window.onload = function() {
+  ScrollTrigger.normalizeScroll({ target: ".view", allowNestedScroll: true })
+  ScrollTrigger.addEventListener("scrollStart", () => gsap.ticker.add(ScrollTrigger.update));
+  ScrollTrigger.addEventListener("scrollEnd", () => gsap.ticker.remove(ScrollTrigger.update));
   const isMobile = document.body.clientWidth <= 524;
   const isKorean = window.location.pathname.includes("/ko");
   const backgroundTimeline = (trigger, markers) => {
@@ -972,7 +975,8 @@ window.onload = function() {
         target = gsap.utils.toArray(vars.target)[0],
         st = {
           trigger: ".logo-blocks-container",
-          ...(isMobile ? { pin: true } : {}),
+          // ...(isMobile ? { pin: true } : {}),
+          pin: true,
           start: !isMobile ? "left -2%" : "top top",
           end: !isMobile ? "+=5000" : "+=3000",
           scrub: 1,
