@@ -28,7 +28,6 @@ window.onload = function() {
       target: document.querySelector(".view"),
       type: "wheel",
       onChangeY: (self) => {
-        console.log(self);
         self.target.scrollLeft += self.deltaY;
       },
     });
@@ -973,11 +972,12 @@ window.onload = function() {
         target = gsap.utils.toArray(vars.target)[0],
         st = {
           trigger: ".logo-blocks-container",
-          pin: true,
+          ...(isMobile ? { pin: true } : {}),
           start: !isMobile ? "left -2%" : "top top",
           end: !isMobile ? "+=5000" : "+=3000",
           scrub: 1,
           horizontal: !isMobile,
+          scroller: '.view',
           snap: {
             snapTo: 0.1,
             duration: { min: 0.1, max: 0.2 },
@@ -1050,7 +1050,7 @@ window.onload = function() {
       scrub: 2,
     });
   };
-  // LogoBlocksLottie();
+  LogoBlocksLottie();
 
   //! <------------------------------------ FAQ Section ------------------------------------>
   const FAQ = () => {
@@ -1139,7 +1139,6 @@ window.onload = function() {
 
     function FAQItemOnClick(item, index, items) {
       let isOpen = false;
-      console.log(item);
       const [container] = gsap.utils.toArray(item.children);
       const [header, content] = gsap.utils.toArray(container.children);
       const [title, icon] = gsap.utils.toArray(header.children);
