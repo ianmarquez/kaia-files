@@ -438,7 +438,8 @@ Galazy Z fold 5 882 x 344
   .roadmap-subheader {
     color: var(--grey-400);
     margin-top: 0;
-    font-size: 0.625rem;
+    font-size: 1rem;
+    max-width: 80vw;
   }
   .timeline {
     grid-column-gap: 0.875rem;
