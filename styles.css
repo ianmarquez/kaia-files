@@ -21,6 +21,7 @@ body ::-webkit-scrollbar {
 
 .view {
   overflow-y: hidden;
+  overscroll-behavior: none;
 }
 
 @media only screen and (min-width: 5120px) {
