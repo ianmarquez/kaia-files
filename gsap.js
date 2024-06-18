@@ -218,8 +218,9 @@ window.onload = function() {
       scrollTrigger: {
         trigger: ".footer",
         scrub: 1,
-        start: !isMobile ? "left 30%" : "-10% top",
-        ...(!isMobile ? { end: "left 20%" } : {}),
+        start: !isMobile ? "left center" : "-10% top",
+        markers: true,
+        ...(!isMobile ? { end: "left+=200 center" } : {}),
         horizontal: !isMobile,
         scroller: ".view"
       },
