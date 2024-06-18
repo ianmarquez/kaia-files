@@ -38,11 +38,11 @@ window.onload = function() {
 
   const WelcomeVideo = () => {
     const desktopVideo = document.getElementById("desktop-video-element");
-    desktopVideo.playbackRate = 2;
+    if (desktopVideo) desktopVideo.playbackRate = 2;
     const tabletVideo = document.getElementById("tablet-video-element");
-    tabletVideo.playbackRate = 2;
+    if (tabletVideo) tabletVideo.playbackRate = 2;
     const mobileVideo = document.getElementById("mobile-video-element");
-    mobileVideo.playbackRate = 2;
+    if (mobileVideo) mobileVideo.playbackRate = 2;
     setTimeout(() => {
       document.body.style.overflow = "";
       gsap
@@ -219,7 +219,6 @@ window.onload = function() {
         trigger: ".footer",
         scrub: 1,
         start: !isMobile ? "left center" : "-10% top",
-        markers: true,
         ...(!isMobile ? { end: "left+=200 center" } : {}),
         horizontal: !isMobile,
         scroller: ".view"
@@ -747,228 +746,228 @@ window.onload = function() {
   vision();
 
   // //! <------------------------------------ Roadmap Section ------------------------------------>
-  const roadmapText = document.querySelectorAll(".roadmap-subheader");
-  const milestoneHeaders = document.querySelectorAll(
-    ".roadmap .milestone-header"
-  );
-  const shortVerticalLines = document.querySelectorAll(
-    ".roadmap .short-vertical-line"
-  );
-  const longVerticalLines = document.querySelectorAll(
-    ".roadmap .long-vertical-line"
-  );
-  const checkIcons = document.querySelectorAll(".roadmap .check-icon");
-
-  checkIcons.forEach((checkIcon) => {
-    gsap.to(checkIcon, {
-      scrollTrigger: {
-        trigger: checkIcon,
-        start: "left 10%",
-        end: "right 10%",
-        scroller: ".view",
-        horizontal: true,
-        scrub: 1,
-        ...(isMobile && { scroller: ".roadmap-container" }),
-        onEnter: () => {
-          gsap.to(checkIcon, {
-            opacity: 1,
-            duration: 0.2,
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to(checkIcon, {
-            opacity: 0,
-            duration: 0.2,
-          });
-        },
-      },
-    });
-  });
-
-  shortVerticalLines.forEach((line) => {
-    gsap.to(line, {
-      scrollTrigger: {
-        trigger: line,
-        start: "left 10%",
-        end: "right 10%",
-        horizontal: true,
-        scroller: ".view",
-        scrub: 1,
-        ...(isMobile && { scroller: ".roadmap-container" }),
-        onEnter: () => {
-          line.style.opacity = 0.5;
-        },
-        onLeaveBack: () => {
-          line.style.opacity = 0.24;
-        },
-      },
-    });
-  });
-  longVerticalLines.forEach((line) => {
-    gsap.to(line, {
-      scrollTrigger: {
-        trigger: line,
-        start: "left 10%",
-        end: "right 10%",
-        scroller: ".view",
-        horizontal: true,
-        scrub: 1,
-        ...(isMobile && { scroller: ".roadmap-container" }),
-        onEnter: () => {
-          gsap.to(line, {
-            y: 10,
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to(line, {
-            y: 0,
-          });
-        },
-      },
-    });
-  });
-
-  milestoneHeaders.forEach((milestone, idx) => {
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: milestone,
-        scroller: ".view",
-        horizontal: true,
-        start: "left 10%",
-        end: "right 10%",
-        scrub: 1,
-        ...(isMobile && { scroller: ".roadmap-container" }),
-        onEnter: () => {
-          // Animate milestone
-          gsap
-            .timeline()
-            .to(milestone, {
-              onComplete: () => {
-                milestone.classList.add("milestone-active");
-                gsap.set(milestone, { clearProps: "backgroundColor" });
-              },
-            })
-            .to(
-              roadmapText[idx],
-              {
-                opacity: 1,
-                y: 40,
-              },
-              "<"
-            );
-        },
-        onEnterBack: () => {
-          gsap.to(roadmapText[idx], {
-            opacity: 1,
-            y: 40,
-          });
-        },
-        onLeave: () => {
-          // Animate milestone
-          gsap.timeline().to(milestone, {}).to(
-            roadmapText[idx],
-            {
-              opacity: 0,
-              y: -40,
-            },
-            "<"
-          );
-        },
-        onLeaveBack: () => {
-          gsap
-            .timeline()
-            .to(milestone, {
-              onComplete: () => {
-                milestone.classList.remove("milestone-active");
-                gsap.set(milestone, { clearProps: "backgroundColor" });
-              },
-            })
-            .to(
-              roadmapText[idx],
-              {
-                opacity: 0,
-                y: -40,
-              },
-              "<"
-            );
-        },
-      },
-    });
-  });
-
-  gsap.set(".roadmap-ring", { xPercent: -5 });
-
-  const roadmapRings = document.querySelectorAll(".roadmap-ring");
-
-  roadmapRings.forEach((ring, idx) => {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: ring,
-          scrub: 0.2,
-          scroller: ".view",
-          start: "left right",
-          end: "+=10000",
-          horizontal: true,
-          ...(isMobile && { scroller: ".roadmap-container" }),
-        },
-      })
-      .to(ring, {
-        rotation: 360 * (idx + 5),
-        duration: 1,
-        ease: "none",
-      });
-  });
-
-  gsap.fromTo(
-    ".roadmap-rings",
-    { x: "-100%", opacity: 0 },
-    {
-      x: "0%",
-      opacity: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".roadmap-rings",
-        start: "left 50%",
-        scroller: ".view",
-        end: "left 20%",
-        scrub: true,
-        horizontal: !isMobile,
-      },
-    }
-  );
-
-  gsap.from(".roadmap-header", {
-    opacity: 0,
-    y: 100,
-    ease: "power2.out",
-    scrollTrigger: {
-      trigger: ".roadmap-header",
-      scroller: ".view",
-      start: "left 80%",
-      end: "left 50%",
-      scrub: true,
-      horizontal: !isMobile,
-    },
-  });
-
-  const milestones = gsap.utils.toArray(".milestone-header");
-  milestones.forEach((milestone) => {
-    gsap.from(milestone, {
-      opacity: 0,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: milestone,
-        scroller: ".view",
-        start: "left 80%",
-        end: "left 50%",
-        scrub: true,
-        horizontal: true,
-        ...(isMobile && { scroller: ".roadmap-container" }),
-      },
-    });
-  });
-
+  // const roadmapText = document.querySelectorAll(".roadmap-subheader");
+  // const milestoneHeaders = document.querySelectorAll(
+  //   ".roadmap .milestone-header"
+  // );
+  // const shortVerticalLines = document.querySelectorAll(
+  //   ".roadmap .short-vertical-line"
+  // );
+  // const longVerticalLines = document.querySelectorAll(
+  //   ".roadmap .long-vertical-line"
+  // );
+  // const checkIcons = document.querySelectorAll(".roadmap .check-icon");
+  //
+  // checkIcons.forEach((checkIcon) => {
+  //   gsap.to(checkIcon, {
+  //     scrollTrigger: {
+  //       trigger: checkIcon,
+  //       start: "left 10%",
+  //       end: "right 10%",
+  //       scroller: ".view",
+  //       horizontal: true,
+  //       scrub: 1,
+  //       ...(isMobile && { scroller: ".roadmap-container" }),
+  //       onEnter: () => {
+  //         gsap.to(checkIcon, {
+  //           opacity: 1,
+  //           duration: 0.2,
+  //         });
+  //       },
+  //       onLeaveBack: () => {
+  //         gsap.to(checkIcon, {
+  //           opacity: 0,
+  //           duration: 0.2,
+  //         });
+  //       },
+  //     },
+  //   });
+  // });
+  //
+  // shortVerticalLines.forEach((line) => {
+  //   gsap.to(line, {
+  //     scrollTrigger: {
+  //       trigger: line,
+  //       start: "left 10%",
+  //       end: "right 10%",
+  //       horizontal: true,
+  //       scroller: ".view",
+  //       scrub: 1,
+  //       ...(isMobile && { scroller: ".roadmap-container" }),
+  //       onEnter: () => {
+  //         line.style.opacity = 0.5;
+  //       },
+  //       onLeaveBack: () => {
+  //         line.style.opacity = 0.24;
+  //       },
+  //     },
+  //   });
+  // });
+  // longVerticalLines.forEach((line) => {
+  //   gsap.to(line, {
+  //     scrollTrigger: {
+  //       trigger: line,
+  //       start: "left 10%",
+  //       end: "right 10%",
+  //       scroller: ".view",
+  //       horizontal: true,
+  //       scrub: 1,
+  //       ...(isMobile && { scroller: ".roadmap-container" }),
+  //       onEnter: () => {
+  //         gsap.to(line, {
+  //           y: 10,
+  //         });
+  //       },
+  //       onLeaveBack: () => {
+  //         gsap.to(line, {
+  //           y: 0,
+  //         });
+  //       },
+  //     },
+  //   });
+  // });
+  //
+  // milestoneHeaders.forEach((milestone, idx) => {
+  //   gsap.timeline({
+  //     scrollTrigger: {
+  //       trigger: milestone,
+  //       scroller: ".view",
+  //       horizontal: true,
+  //       start: "left 10%",
+  //       end: "right 10%",
+  //       scrub: 1,
+  //       ...(isMobile && { scroller: ".roadmap-container" }),
+  //       onEnter: () => {
+  //         // Animate milestone
+  //         gsap
+  //           .timeline()
+  //           .to(milestone, {
+  //             onComplete: () => {
+  //               milestone.classList.add("milestone-active");
+  //               gsap.set(milestone, { clearProps: "backgroundColor" });
+  //             },
+  //           })
+  //           .to(
+  //             roadmapText[idx],
+  //             {
+  //               opacity: 1,
+  //               y: 40,
+  //             },
+  //             "<"
+  //           );
+  //       },
+  //       onEnterBack: () => {
+  //         gsap.to(roadmapText[idx], {
+  //           opacity: 1,
+  //           y: 40,
+  //         });
+  //       },
+  //       onLeave: () => {
+  //         // Animate milestone
+  //         gsap.timeline().to(milestone, {}).to(
+  //           roadmapText[idx],
+  //           {
+  //             opacity: 0,
+  //             y: -40,
+  //           },
+  //           "<"
+  //         );
+  //       },
+  //       onLeaveBack: () => {
+  //         gsap
+  //           .timeline()
+  //           .to(milestone, {
+  //             onComplete: () => {
+  //               milestone.classList.remove("milestone-active");
+  //               gsap.set(milestone, { clearProps: "backgroundColor" });
+  //             },
+  //           })
+  //           .to(
+  //             roadmapText[idx],
+  //             {
+  //               opacity: 0,
+  //               y: -40,
+  //             },
+  //             "<"
+  //           );
+  //       },
+  //     },
+  //   });
+  // });
+  //
+  // gsap.set(".roadmap-ring", { xPercent: -5 });
+  //
+  // const roadmapRings = document.querySelectorAll(".roadmap-ring");
+  //
+  // roadmapRings.forEach((ring, idx) => {
+  //   gsap
+  //     .timeline({
+  //       scrollTrigger: {
+  //         trigger: ring,
+  //         scrub: 0.2,
+  //         scroller: ".view",
+  //         start: "left right",
+  //         end: "+=10000",
+  //         horizontal: true,
+  //         ...(isMobile && { scroller: ".roadmap-container" }),
+  //       },
+  //     })
+  //     .to(ring, {
+  //       rotation: 360 * (idx + 5),
+  //       duration: 1,
+  //       ease: "none",
+  //     });
+  // });
+  //
+  // gsap.fromTo(
+  //   ".roadmap-rings",
+  //   { x: "-100%", opacity: 0 },
+  //   {
+  //     x: "0%",
+  //     opacity: 1,
+  //     ease: "power2.out",
+  //     scrollTrigger: {
+  //       trigger: ".roadmap-rings",
+  //       start: "left 50%",
+  //       scroller: ".view",
+  //       end: "left 20%",
+  //       scrub: true,
+  //       horizontal: !isMobile,
+  //     },
+  //   }
+  // );
+  //
+  // gsap.from(".roadmap-header", {
+  //   opacity: 0,
+  //   y: 100,
+  //   ease: "power2.out",
+  //   scrollTrigger: {
+  //     trigger: ".roadmap-header",
+  //     scroller: ".view",
+  //     start: "left 80%",
+  //     end: "left 50%",
+  //     scrub: true,
+  //     horizontal: !isMobile,
+  //   },
+  // });
+  //
+  // const milestones = gsap.utils.toArray(".milestone-header");
+  // milestones.forEach((milestone) => {
+  //   gsap.from(milestone, {
+  //     opacity: 0,
+  //     ease: "power2.out",
+  //     scrollTrigger: {
+  //       trigger: milestone,
+  //       scroller: ".view",
+  //       start: "left 80%",
+  //       end: "left 50%",
+  //       scrub: true,
+  //       horizontal: true,
+  //       ...(isMobile && { scroller: ".roadmap-container" }),
+  //     },
+  //   });
+  // });
+  //
   //! <------------------------------------ Logo Blocks Lottie Section ------------------------------------>
   const LogoBlocksLottie = () => {
     function LottieScrollTrigger(vars) {
