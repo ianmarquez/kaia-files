@@ -975,7 +975,8 @@ window.onload = function() {
         target = gsap.utils.toArray(vars.target)[0],
         st = {
           trigger: ".logo-blocks-container",
-          ...(isMobile ? { pin: true } : {}),
+          // ...(isMobile ? { pin: true } : {}),
+          pin: true,
           start: !isMobile ? "left -2%" : "top top",
           end: !isMobile ? "+=5000" : "+=3000",
           scrub: 1,
