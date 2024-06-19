@@ -613,7 +613,10 @@ window.onload = function() {
     const visionCategoryContainer = document.querySelector(
       ".vision .vision-category-container"
     );
-    const visionBlocks = gsap.utils.toArray(".vision-block");
+    const visionBlockOne = gsap.utils.toArray(".vision-block.one");
+    const visionBlockTwo = gsap.utils.toArray(".vision-block.two");
+    const visionBlockThree = gsap.utils.toArray(".vision-block.three");
+    const visionBlockFour = gsap.utils.toArray(".vision-block.four");
 
     function convertRemToPixels(rem) {
       return (
@@ -735,19 +738,31 @@ window.onload = function() {
         },
       });
     };
-
-    visionBlocks.map((visionBlock, idx) => {
+    const bigBlocks = [...visionBlockOne, ...visionBlockFour]
+    const smallBlocks = [...visionBlockTwo, ...visionBlockThree]
+    bigBlocks.map((visionBlock) => {
       backgroundTimelineVision(".vision").to(
         visionBlock,
         {
-          x: `-${idx + 1 * 20}rem`,
+          x: !isMobile ? "-1000" : "-250",
         },
         {
-          x: `${idx + 30 * 3}rem`,
+          x: !isMobile ? "1000" : "250",
         }
       );
     });
 
+    smallBlocks.map((visionBlock) => {
+      backgroundTimelineVision(".vision").to(
+        visionBlock,
+        {
+          x: !isMobile ? "-500" : "-125",
+        },
+        {
+          x: !isMobile ? "-500" : "125",
+        }
+      );
+    });
     backgroundTimelineVision(".vision").fromTo(
       ".vision-background",
       { x: "-25rem" },
