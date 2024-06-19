@@ -30,23 +30,23 @@ body ::-webkit-scrollbar {
 
 @media only screen and (min-width: 5120px) {
   html {
-    font-size: 34px !important;
+    font-size: 32px !important;
   }
 }
 
 @media only screen and (min-width: 3840px) and (max-width: 5119px) {
   html {
-    font-size: 34px !important;
+    font-size: 28px !important;
   }
 }
 @media only screen and (min-width: 3008px) and (max-width: 3839) {
   html {
-    font-size: 28px !important;
+    font-size: 24px !important;
   }
 }
 @media only screen and (min-width: 2048px) and (max-width: 3007) {
   html {
-    font-size: 24px !important;
+    font-size: 20px !important;
   }
 }
 
