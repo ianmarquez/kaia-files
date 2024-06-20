@@ -27,6 +27,16 @@ body ::-webkit-scrollbar {
 	overscroll-behavior: none;
 }
 
+.socials-container {
+	height: 100dvh !important;
+}
+
+@media (orientation: portrait) {
+	.logo-blocks-lottie {
+		width: 105vw !important;
+	}
+}
+
 @media only screen and (min-width: 5120px) {
 	html {
 		font-size: 32px !important;
@@ -220,6 +230,14 @@ Galazy Z fold 5 882 x 344
 		left: auto;
 		right: 10rem;
 	}
+	.platform-icon-mobile {
+		width: 3.75rem;
+		top: auto;
+		bottom: 7.1rem;
+		left: auto;
+		right: 10rem;
+	}
+
 	.about-text-contents-right {
 		flex: 1;
 		justify-content: flex-end;
@@ -233,15 +251,13 @@ Galazy Z fold 5 882 x 344
 	}
 
 	.about-header-right {
-		flex: 1;
-		justify-content: flex-end;
-		align-items: flex-end;
-		width: 100%;
-		height: 100%;
-		padding-bottom: 2.25rem;
-		padding-right: 1rem;
+		box-sizing: border-box;
+		text-align: right;
+		flex-flow: column;
+		font-size: 2.5rem;
+		line-height: 4rem;
 		display: flex;
-		position: absolute;
+		position: relative;
 		padding-right: 14rem;
 	}
 
@@ -267,9 +283,9 @@ Galazy Z fold 5 882 x 344
 		justify-content: center;
 		align-items: center;
 		top: auto;
-		bottom: 3rem;
+		bottom: 2.9rem;
 		left: auto;
-		right: 2.7rem;
+		right: 3.1rem;
 	}
 
 	.about-header {
@@ -311,12 +327,21 @@ Galazy Z fold 5 882 x 344
 	}
 	.build-pills.one {
 		border-width: 0.2rem;
-		width: 9rem;
+		width: 10rem;
 		padding-top: 1.4rem;
 		padding-bottom: 1.4rem;
 		font-size: 2.5rem;
 		top: 1rem;
-		left: -1.1rem;
+		left: -2.1rem;
+	}
+
+	.build-pills.pill-two {
+		border-width: 0.2rem;
+		width: 11rem;
+		height: 4rem;
+		font-size: 2.5rem;
+		top: 9.5rem;
+		left: 6.6rem;
 	}
 	.build-circle {
 		text-align: center;
@@ -325,15 +350,9 @@ Galazy Z fold 5 882 x 344
 		font-size: 2.5rem;
 		line-height: 2.3rem;
 		top: 0.2rem;
-		left: 7.5rem;
+		left: 7.8rem;
 	}
-	.build-pills.pill-two {
-		border-width: 0.25rem;
-		width: 9rem;
-		font-size: 2.5rem;
-		top: 9.5rem;
-		left: 6.9rem;
-	}
+
 	.build-small-pointed-circle {
 		width: 7rem;
 		height: 7rem;
@@ -344,9 +363,10 @@ Galazy Z fold 5 882 x 344
 	}
 	.semi-circle-container {
 		width: 11.87rem;
-		top: 16.8rem;
+		top: 16.5rem;
 		left: -1.9rem;
 	}
+
 	.semi-circle {
 		width: 11.87rem;
 	}
@@ -379,6 +399,7 @@ Galazy Z fold 5 882 x 344
 		grid-row-gap: 2.25rem;
 		width: auto;
 		margin-top: 0;
+		height: 4rem;
 	}
 	.vision-category {
 		font-size: 5.375rem;
@@ -395,17 +416,17 @@ Galazy Z fold 5 882 x 344
 	.vision-block.two {
 		width: 7.25rem;
 		height: auto;
-		top: 19.8rem;
+		top: 20rem;
 		left: 27rem;
 	}
 	.vision-block.three {
 		width: 7.25rem;
-		top: 7.4rem;
+		top: -6.6rem;
 		left: 42.6rem;
 	}
 	.vision-block.one {
 		width: 8rem;
-		top: 7.1rem;
+		top: -7.9rem;
 		left: 1.55469rem;
 	}
 
@@ -416,6 +437,7 @@ Galazy Z fold 5 882 x 344
 		grid-column-gap: 2rem;
 		grid-row-gap: 2rem;
 		width: 100%;
+		overflow-y: clip;
 	}
 	.w-row,
 	.w-container .w-row {
@@ -432,7 +454,7 @@ Galazy Z fold 5 882 x 344
 		width: 100vw;
 		max-width: none;
 		margin-right: 8rem;
-		left: 1rem;
+		left: 2rem;
 	}
 	.roadmap-header-container {
 		grid-column-gap: 1rem;
@@ -453,23 +475,24 @@ Galazy Z fold 5 882 x 344
 		bottom: 0.3rem;
 		left: 0;
 		overflow: visible;
-		gap: 0.8rem;
 	}
 	.roadmap-ring {
 		height: 1.7rem;
 		margin-left: 0;
-		margin-right: -0.9rem;
+		margin-right: -1.2rem;
 		display: block;
 	}
+
 	.roadmap-subheader-container {
 		width: 50%;
 	}
 	.roadmap-subheader {
 		color: var(--grey-400);
-		margin-top: 0;
+		margin-top: -2rem;
 		font-size: 1rem;
-		max-width: 80vw;
+		max-width: 50vw;
 	}
+
 	.timeline {
 		grid-column-gap: 0.875rem;
 		grid-row-gap: 0.875rem;
@@ -583,6 +606,11 @@ Galazy Z fold 5 882 x 344
 		line-height: 1rem;
 	}
 
+	.faq-background {
+		margin-left: 0;
+		left: 25rem;
+	}
+
 	.footer {
 		justify-content: center;
 		align-items: flex-end;
@@ -631,6 +659,44 @@ Galazy Z fold 5 882 x 344
 	.footer-link {
 		font-size: 0.625rem;
 		line-height: 1.125rem;
-		text-decoration: none;
+	}
+
+	.footer-text {
+		font-size: 0.625rem;
+		margin: 0;
+	}
+
+	.text-span-for-mobile {
+		margin-left: 3rem;
+		display: flex;
+	}
+
+	.word-rotation-list-mobile {
+		justify-content: center;
+		align-items: center;
+		width: 14rem;
+		height: 3rem;
+		margin-bottom: 0;
+		padding-left: 0;
+		overflow: hidden;
+	}
+
+	.about-rotation-container-mobile {
+		flex-flow: row;
+		justify-content: center;
+		align-items: center;
+		top: auto;
+		bottom: 2.9rem;
+		left: 7.4rem;
+		right: 2.7rem;
+	}
+
+	.check-icon {
+		width: 1rem !important;
+		height: 1rem !important;
+	}
+
+	.logo-blocks-lottie {
+		width: 75vw !important;
 	}
 }

@@ -25,6 +25,12 @@ window.onload = function () {
 		};
 	}
 
+	const view = document.querySelector(".view");
+	const allSectionsArray = Array.from(view.children);
+	allSectionsArray.forEach((section) => {
+		section.style.overflowY = "clip";
+	});
+
 	const backgroundTimeline = (trigger, markers) => {
 		return gsap.timeline({
 			scrollTrigger: {
@@ -606,27 +612,32 @@ window.onload = function () {
 	partners();
 
 	//! <------------------------------------ Vision Section ------------------------------------>
-	const vision = () => {
+	const Vision = () => {
 		const visionText = document.querySelectorAll(".vision .vision-text");
 		const visionCategory = document.querySelectorAll(
 			".vision .vision-category"
 		);
-		const visionCategoryContainer = document.querySelector(
-			".vision .vision-category-container"
-		);
+
 		const visionBlockOne = gsap.utils.toArray(".vision-block.one");
 		const visionBlockTwo = gsap.utils.toArray(".vision-block.two");
 		const visionBlockThree = gsap.utils.toArray(".vision-block.three");
 		const visionBlockFour = gsap.utils.toArray(".vision-block.four");
 
-		function convertRemToPixels(rem) {
-			return (
-				rem * parseFloat(getComputedStyle(document.documentElement).fontSize)
-			);
-		}
-
 		visionCategory.forEach((category, idx) => {
-			const categoryWidth = category.offsetWidth;
+			const visionCategoryContainer = document.querySelector(
+				".vision-category-container"
+			);
+
+			const gridColumnGap =
+				parseFloat(
+					getComputedStyle(visionCategoryContainer).getPropertyValue(
+						"grid-column-gap"
+					)
+				) || 6;
+			let offsetGap = gridColumnGap;
+			if (idx === category.length - 1) offsetGap = 0;
+
+			const currentCategory = visionCategory[idx];
 
 			if (!isMobile) {
 				gsap
@@ -641,6 +652,7 @@ window.onload = function () {
 							anticipatePin: 1,
 						},
 					})
+
 					.to(
 						category,
 
@@ -670,10 +682,19 @@ window.onload = function () {
 						delay: 100,
 						duration: 20,
 					})
-					.to(visionCategoryContainer, {
-						x: `-=${categoryWidth + convertRemToPixels(6)}`,
+
+					.to(currentCategory, {
+						width: 0,
 						duration: 20,
-					});
+					})
+					.to(
+						visionCategoryContainer,
+						{
+							x: offsetGap * (idx + 1) * -1,
+							duration: 20,
+						},
+						"<"
+					);
 			} else {
 				const tl = gsap
 					.timeline({
@@ -775,7 +796,7 @@ window.onload = function () {
 			{ x: "-25rem", duration: 0.5, ease: "power2.out" }
 		);
 	};
-	vision();
+	Vision();
 
 	// //! <------------------------------------ Roadmap Section ------------------------------------>
 	const Roadmap = () => {
@@ -797,6 +818,8 @@ window.onload = function () {
 					gsap.to(checkIcon, {
 						opacity: 1,
 						duration: 0.2,
+						delay: 0.3,
+						ease: "power2.in",
 					});
 				},
 				onLeaveBack: () => {
@@ -1076,9 +1099,9 @@ window.onload = function () {
 				return "https://uploads-ssl.webflow.com/666642b50954b5d26bc84836/666aa85cd1e583caef4d27a2_LogoBlocksDesktopKOR.json";
 			}
 			if (isMobile) {
-				return "https://uploads-ssl.webflow.com/666642b50954b5d26bc84836/666aa85cbb68bc32d13d4458_LogoBlocksMobileEN.json";
+				return "https://uploads-ssl.webflow.com/666642b50954b5d26bc84836/6673fb9676d8d78a9afadb08_LogoBlocksMobileEN.json";
 			}
-			return "https://uploads-ssl.webflow.com/666642b50954b5d26bc84836/666aa85ccf3414dc69c8fe65_LogoBlocksDesktopEN.json";
+			return "https://uploads-ssl.webflow.com/666642b50954b5d26bc84836/6673fb960bcc48e50f92b9b9_LogoBlocksDesktopEN.json";
 		}
 
 		LottieScrollTrigger({
