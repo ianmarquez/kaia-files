@@ -98,21 +98,22 @@ window.onload = function () {
 			scrollTrigger: {
 				trigger: ".intro",
 				scrub: 1,
-				start: "right center",
+				start: "right -30%",
 				end: "+=700",
 				scroller: ".view",
 				horizontal: !isMobile,
+				markers: true,
 			},
 		});
 		outlineTimeline
 			.to(bottom, {
-				y: () => (isMobile ? "-20rem" : "-10rem"),
+				y: () => "-10rem",
 				ease: "none",
 			})
 			.to(
 				top,
 				{
-					y: () => (isMobile > 524 ? "20rem" : "10rem"),
+					y: () => "10rem",
 					ease: "none",
 				},
 				"<"
