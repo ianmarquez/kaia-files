@@ -692,7 +692,7 @@ Galazy Z fold 5 882 x 344
 
   .about-rotation-container-mobile {
     flex-flow: row;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
     top: auto;
     bottom: 2.9rem;
