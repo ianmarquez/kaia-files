@@ -31,10 +31,6 @@ body ::-webkit-scrollbar {
   overscroll-behavior: none;
 }
 
-.socials-container {
-  height: 100dvh !important;
-}
-
 @media (orientation: portrait) {
   .logo-blocks-lottie {
     width: 105vw !important;
@@ -144,9 +140,6 @@ Galazy Z fold 5 882 x 344
     width: 2rem;
   }
 
-  .socials-container {
-    padding: 3.125rem 3.125rem 0 0;
-  }
   .socials-contents {
     grid-column-gap: 1.1rem;
     grid-row-gap: 1.1rem;
