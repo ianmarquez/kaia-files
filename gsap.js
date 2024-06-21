@@ -1315,7 +1315,7 @@ window.onload = function() {
       if (viewScrollY < view.scrollTop) {
         gsap.to(".mobile-menu", {
           yPercent: -100,
-          delay: 1,
+          delay: 0.5,
         });
       } else {
         gsap.to(".mobile-menu", {
@@ -1325,7 +1325,7 @@ window.onload = function() {
       viewScrollY = view.scrollTop;
     };
 
-    view.addEventListener("scroll", debounce(handleScroll, 100));
+    view.addEventListener("scroll", debounce(handleScroll, 50))
 
     document
       .querySelectorAll(".mobile-menu-container a")
