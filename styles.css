@@ -419,6 +419,7 @@ Galazy Z fold 5 882 x 344
   }
   .vision-block.four {
     width: 7.25rem;
+    height: 7.25rem;
     top: 19.3rem;
     left: 63.8rem;
   }
@@ -430,12 +431,14 @@ Galazy Z fold 5 882 x 344
   }
   .vision-block.three {
     width: 7.25rem;
-    top: -6.6rem;
+    height: 7.25rem;
+    top: 5%;
     left: 42.6rem;
   }
   .vision-block.one {
     width: 8rem;
-    top: -7.9rem;
+    height: 8rem;
+    top: 5%;
     left: 1.55469rem;
   }
 
