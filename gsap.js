@@ -101,7 +101,6 @@ window.onload = function() {
         start: !isMobile ? "right -30%" : "right center+=350",
         end: !isMobile ? "+=700" : "right center-=500",
         scroller: ".view",
-        markers: true,
         horizontal: !isMobile,
       },
     });
