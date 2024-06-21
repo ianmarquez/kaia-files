@@ -98,9 +98,10 @@ window.onload = function() {
       scrollTrigger: {
         trigger: ".intro",
         scrub: 1,
-        start: "right -30%",
-        end: "+=700",
+        start: !isMobile ? "right -30%" : "right center+=350",
+        end: !isMobile ? "+=700" : "right center-=500",
         scroller: ".view",
+        markers: true,
         horizontal: !isMobile,
       },
     });
