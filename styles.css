@@ -140,6 +140,9 @@ Galazy Z fold 5 882 x 344
     width: 2rem;
   }
 
+  .socials-container.mobile {
+    display: none;
+  }
   .socials-contents {
     grid-column-gap: 1.1rem;
     grid-row-gap: 1.1rem;
