@@ -100,7 +100,7 @@ window.onload = function() {
         trigger: ".about",
         scrub: 1,
         start: !isMobile ? "left left" : "center center",
-        end: !isMobile ? "+=700" : "right center",
+        end: !isMobile ? "+=700" : "+=200",
         scroller: ".view",
         horizontal: !isMobile,
       },

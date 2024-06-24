@@ -24,11 +24,23 @@ body ::-webkit-scrollbar {
   overscroll-behavior: none;
 }
 
+.timeline {
+  overscroll-behavior: none;
+}
+
 .about {
   overflow-y: clip;
 }
 
 .vision {
+  overscroll-behavior: none;
+}
+
+.vision-container {
+  overscroll-behavior: none;
+}
+
+.timeline {
   overscroll-behavior: none;
 }
 
@@ -76,7 +88,10 @@ body ::-webkit-scrollbar {
     overflow-y: hidden !important;
   }
   .vision {
-    overflow-y: hidden;
+    overflow-y: clip;
+  }
+  .vision-container {
+    overflow-y: clip;
   }
   .view {
     height: 100vh;
