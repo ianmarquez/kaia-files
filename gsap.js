@@ -633,10 +633,19 @@ window.onload = function () {
 
 	//! <------------------------------------ Vision Section ------------------------------------>
 	const Vision = () => {
-		const visionText = document.querySelectorAll(".vision .vision-text");
+		const visionTextDesktop = gsap.utils
+			.toArray(".vision .vision-text")
+			.filter((el) => !el.classList.contains("korean-alt"));
+
+		const visionTextMobile = gsap.utils
+			.toArray(".vision .vision-text")
+			.filter((el) => !el.classList.contains("vision-main-text"));
+
 		const visionCategory = document.querySelectorAll(
 			".vision .vision-category"
 		);
+
+		console.log(visionTextMobile);
 
 		const visionBlockOne = gsap.utils.toArray(".vision-block.one");
 		const visionBlockTwo = gsap.utils.toArray(".vision-block.two");
@@ -682,7 +691,7 @@ window.onload = function () {
 						}
 					)
 					.fromTo(
-						visionText[idx],
+						visionTextDesktop[idx],
 						{
 							clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
 							duration: 40,
@@ -696,7 +705,7 @@ window.onload = function () {
 						"<"
 					)
 
-					.to([category, visionText[idx]], {
+					.to([category, visionTextDesktop[idx]], {
 						opacity: 0,
 						y: 20,
 						delay: 100,
@@ -739,7 +748,7 @@ window.onload = function () {
 					);
 				if (idx !== 0) {
 					tl.fromTo(
-						visionText[idx],
+						visionTextMobile[idx],
 						{
 							opacity: 0,
 							y: 50,
@@ -756,7 +765,7 @@ window.onload = function () {
 					);
 				}
 
-				tl.to([category, visionText[idx]], {
+				tl.to([category, visionTextMobile[idx]], {
 					opacity: 0,
 					y: 100,
 					delay: 100,
@@ -822,7 +831,13 @@ window.onload = function () {
 
 	// //! <------------------------------------ Roadmap Section ------------------------------------>
 	const Roadmap = () => {
-		const roadmapText = gsap.utils.toArray(".roadmap-subheader");
+		const roadmapTextDesktop = gsap.utils.toArray(
+			".roadmap-subheader-container-main .roadmap-subheader"
+		);
+		const roadmapTextMobile = gsap.utils.toArray(
+			".roadmap-subheader-container-korean-alt .roadmap-subheader"
+		);
+
 		const milestoneHeaders = gsap.utils.toArray(".roadmap .milestone-header");
 		const shortVerticalLines = gsap.utils.toArray(
 			".roadmap .short-vertical-line"
@@ -891,82 +906,161 @@ window.onload = function () {
 			});
 		});
 
-		milestoneHeaders.forEach((milestone, idx) => {
-			let space = 240;
+		if (!isMobile) {
+			milestoneHeaders.forEach((milestone, idx) => {
+				let space = 240;
 
-			if (idx + 1 > 0 && idx + 1 < milestoneHeaders.length) {
-				const current = milestoneHeaders[idx].getBoundingClientRect(),
-					next = milestoneHeaders[idx + 1].getBoundingClientRect(),
-					nextWidthHalf = next.width / 2;
-				space = next.left - current.right + nextWidthHalf;
-			}
-			gsap.timeline({
-				scrollTrigger: {
-					trigger: milestone,
-					scroller: ".view",
-					horizontal: true,
-					start: !isMobile ? "center 25%" : "center 40%",
-					end: !isMobile ? `right+=${space} 25%` : `right+=${space} 40%`,
-					scrub: 1,
-					...(isMobile && { scroller: ".roadmap-container" }),
+				if (idx + 1 > 0 && idx + 1 < milestoneHeaders.length) {
+					const current = milestoneHeaders[idx].getBoundingClientRect(),
+						next = milestoneHeaders[idx + 1].getBoundingClientRect(),
+						nextWidthHalf = next.width / 2;
+					space = next.left - current.right + nextWidthHalf;
+				}
+				gsap.timeline({
+					scrollTrigger: {
+						trigger: milestone,
+						scroller: ".view",
+						horizontal: true,
+						start: !isMobile ? "center 25%" : "center 40%",
+						end: !isMobile ? `right+=${space} 25%` : `right+=${space} 40%`,
+						scrub: 1,
+						...(isMobile && { scroller: ".roadmap-container" }),
 
-					onEnter: () => {
-						// Animate milestone
-						gsap
-							.timeline()
-							.to(milestone, {
-								onComplete: () => {
-									milestone.classList.add("milestone-active");
-									gsap.set(milestone, { clearProps: "backgroundColor" });
-								},
-							})
-							.to(
-								roadmapText[idx],
-								{
-									opacity: 1,
-									y: 20,
-								},
-								"<"
-							);
-					},
-					onEnterBack: () => {
-						gsap.to(roadmapText[idx], {
-							opacity: 1,
-							y: 20,
-						});
-					},
-					onLeave: () => {
-						// Animate milestone
-						gsap.timeline().to(milestone, {}).to(
-							roadmapText[idx],
-							{
-								opacity: 0,
-								y: -20,
-							},
-							"<"
-						);
-					},
-					onLeaveBack: () => {
-						gsap
-							.timeline()
-							.to(milestone, {
-								onComplete: () => {
-									milestone.classList.remove("milestone-active");
-									gsap.set(milestone, { clearProps: "backgroundColor" });
-								},
-							})
-							.to(
-								roadmapText[idx],
+						onEnter: () => {
+							// Animate milestone
+							gsap
+								.timeline()
+								.to(milestone, {
+									onComplete: () => {
+										milestone.classList.add("milestone-active");
+										gsap.set(milestone, { clearProps: "backgroundColor" });
+									},
+								})
+								.to(
+									roadmapTextDesktop[idx],
+									{
+										opacity: 1,
+										y: 20,
+									},
+									"<"
+								);
+						},
+						onEnterBack: () => {
+							gsap.to(roadmapTextDesktop[idx], {
+								opacity: 1,
+								y: 20,
+							});
+						},
+						onLeave: () => {
+							// Animate milestone
+							gsap.timeline().to(milestone, {}).to(
+								roadmapTextDesktop[idx],
 								{
 									opacity: 0,
 									y: -20,
 								},
 								"<"
 							);
+						},
+						onLeaveBack: () => {
+							gsap
+								.timeline()
+								.to(milestone, {
+									onComplete: () => {
+										milestone.classList.remove("milestone-active");
+										gsap.set(milestone, { clearProps: "backgroundColor" });
+									},
+								})
+								.to(
+									roadmapTextDesktop[idx],
+									{
+										opacity: 0,
+										y: -20,
+									},
+									"<"
+								);
+						},
 					},
-				},
+				});
 			});
-		});
+		} else {
+			milestoneHeaders.forEach((milestone, idx) => {
+				let space = 240;
+
+				if (idx + 1 > 0 && idx + 1 < milestoneHeaders.length) {
+					const current = milestoneHeaders[idx].getBoundingClientRect(),
+						next = milestoneHeaders[idx + 1].getBoundingClientRect(),
+						nextWidthHalf = next.width / 2;
+					space = next.left - current.right + nextWidthHalf;
+				}
+				gsap.timeline({
+					scrollTrigger: {
+						trigger: milestone,
+						scroller: ".view",
+						horizontal: true,
+						start: !isMobile ? "center 25%" : "center 40%",
+						end: !isMobile ? `right+=${space} 25%` : `right+=${space} 40%`,
+						scrub: 1,
+						...(isMobile && { scroller: ".roadmap-container" }),
+
+						onEnter: () => {
+							// Animate milestone
+							gsap
+								.timeline()
+								.to(milestone, {
+									onComplete: () => {
+										milestone.classList.add("milestone-active");
+										gsap.set(milestone, { clearProps: "backgroundColor" });
+									},
+								})
+								.to(
+									roadmapTextMobile[idx],
+									{
+										opacity: 1,
+										y: 20,
+									},
+									"<"
+								);
+						},
+						onEnterBack: () => {
+							gsap.to(roadmapTextMobile[idx], {
+								opacity: 1,
+								y: 20,
+							});
+						},
+						onLeave: () => {
+							// Animate milestone
+							gsap.timeline().to(milestone, {}).to(
+								roadmapTextMobile[idx],
+								{
+									opacity: 0,
+									y: -20,
+								},
+								"<"
+							);
+						},
+						onLeaveBack: () => {
+							gsap
+								.timeline()
+								.to(milestone, {
+									onComplete: () => {
+										milestone.classList.remove("milestone-active");
+										gsap.set(milestone, { clearProps: "backgroundColor" });
+									},
+								})
+								.to(
+									roadmapTextMobile[idx],
+									{
+										opacity: 0,
+										y: -20,
+									},
+									"<"
+								);
+						},
+					},
+				});
+			});
+		}
 
 		gsap.set(".roadmap-ring", { xPercent: -5 });
 
