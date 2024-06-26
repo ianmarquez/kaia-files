@@ -8,45 +8,18 @@ const colors = {
 };
 
 window.onload = function () {
-	ScrollTrigger.normalizeScroll({ target: ".view", allowNestedScroll: true });
-	ScrollTrigger.addEventListener("scrollStart", () =>
-		gsap.ticker.add(ScrollTrigger.update)
-	);
-	ScrollTrigger.addEventListener("scrollEnd", () =>
-		gsap.ticker.remove(ScrollTrigger.update)
-	);
 	const isMobile = document.body.clientWidth <= 524;
 	const isKorean = window.location.pathname.includes("/ko");
-	function debounce(func, wait) {
-		let timeout;
-		return function (...args) {
-			clearTimeout(timeout);
-			timeout = setTimeout(() => func.apply(this, args), wait);
-		};
+
+	if (!isMobile) {
+		ScrollTrigger.normalizeScroll({ target: ".view", allowNestedScroll: true });
+		ScrollTrigger.addEventListener("scrollStart", () =>
+			gsap.ticker.add(ScrollTrigger.update)
+		);
+		ScrollTrigger.addEventListener("scrollEnd", () =>
+			gsap.ticker.remove(ScrollTrigger.update)
+		);
 	}
-
-	const view = document.querySelector(".view");
-	const sections = gsap.utils
-		.toArray(view.children)
-		.filter((section) => section.className !== "mobile-menu");
-
-	sections.forEach((section) => {
-		section.style.overflowY = "clip";
-	});
-
-	// Mbile page snap
-	const MobilePageSnap = () => {
-		const snapPoints = sections.map((panel) => {
-			return panel.offsetTop / (view.scrollHeight - view.clientHeight);
-		});
-
-		ScrollTrigger.create({
-			snap: snapPoints,
-			scroller: ".view",
-		});
-	};
-
-	// MobilePageSnap();
 
 	const backgroundTimeline = (trigger, markers) => {
 		return gsap.timeline({
@@ -72,6 +45,18 @@ window.onload = function () {
 		});
 	}
 
+	const OverflowYClipped = () => {
+		const view = document.querySelector(".view");
+		const sections = gsap.utils
+			.toArray(view.children)
+			.filter((section) => section.className !== "mobile-menu");
+
+		sections.forEach((section) => {
+			section.style.overflowY = "clip";
+		});
+	};
+
+	//! <------------------------------------ Welcome Video ------------------------------------>
 	const WelcomeVideo = () => {
 		const desktopVideo = document.getElementById("desktop-video-element");
 		if (desktopVideo) desktopVideo.playbackRate = 2;
@@ -103,12 +88,8 @@ window.onload = function () {
 			});
 		}, 5000);
 	};
-	WelcomeVideo();
 
-	// Swiper Implementation
-
-	// End Swiper Implementation
-
+	//! <------------------------------------ About Section ------------------------------------>
 	const AboutSection = () => {
 		const [top, baseline, bottom] = gsap.utils.toArray(".outline-container");
 		const outlineTimeline = gsap.timeline({
@@ -230,9 +211,7 @@ window.onload = function () {
 		);
 	};
 
-	AboutSection();
-
-	// Start Build Section Animation
+	//! <------------------------------------ Build Section ------------------------------------>
 	const BuildSection = () => {
 		const buildSectionTimeline = gsap.timeline({
 			scrollTrigger: {
@@ -269,20 +248,9 @@ window.onload = function () {
 				"<"
 			);
 	};
-	BuildSection();
 
-	// End Build Section
-
-	// Begin Hangout Animation
-	backgroundTimeline(".hangout").fromTo(
-		".hangout-outline-background",
-		{ x: "-10rem", x: "10rem" },
-		{ x: 0, y: 0 }
-	);
-	// End Hangout Animation
-
-	// Begin Footer Animation
-	const footer = () => {
+	//! <------------------------------------ Footer Section ------------------------------------>
+	const Footer = () => {
 		const footerTimeline = gsap.timeline({
 			scrollTrigger: {
 				trigger: ".footer",
@@ -313,10 +281,9 @@ window.onload = function () {
 			});
 		}
 	};
-	footer();
-	// End Footer Animation
 
-	const partners = () => {
+	//! <------------------------------------ Partners Section ------------------------------------>
+	const Partners = () => {
 		gsap.from(".partners-cards", {
 			rotationX: 90,
 			opacity: 0,
@@ -663,7 +630,6 @@ window.onload = function () {
 			draggable: true,
 		});
 	};
-	partners();
 
 	//! <------------------------------------ Vision Section ------------------------------------>
 	const Vision = () => {
@@ -850,7 +816,6 @@ window.onload = function () {
 			{ x: "-25rem", duration: 0.5, ease: "power2.out" }
 		);
 	};
-	Vision();
 
 	// //! <------------------------------------ Roadmap Section ------------------------------------>
 	const Roadmap = () => {
@@ -1073,7 +1038,7 @@ window.onload = function () {
 			});
 		});
 	};
-	Roadmap();
+
 	//! <------------------------------------ Logo Blocks Lottie Section ------------------------------------>
 	const LogoBlocksLottie = () => {
 		function LottieScrollTrigger(vars) {
@@ -1082,7 +1047,7 @@ window.onload = function () {
 				st = {
 					trigger: ".logo-blocks-container",
 					start: !isMobile ? "left -2%" : "top top",
-					end: !isMobile ? "+=5000" : "+=3000",
+					end: !isMobile ? "+=5000" : "+=7000",
 					scrub: 1,
 					horizontal: !isMobile,
 					scroller: ".view",
@@ -1165,7 +1130,6 @@ window.onload = function () {
 			scrub: 2,
 		});
 	};
-	LogoBlocksLottie();
 
 	//! <------------------------------------ FAQ Section ------------------------------------>
 	const FAQ = () => {
@@ -1321,9 +1285,15 @@ window.onload = function () {
 			});
 		});
 	};
-	FAQ();
 
+	//! <------------------------------------ Hangout Section ------------------------------------>
 	const HangoutWithUs = () => {
+		backgroundTimeline(".hangout").fromTo(
+			".hangout-outline-background",
+			{ x: "-10rem", x: "10rem" },
+			{ x: 0, y: 0 }
+		);
+
 		const hangoutTimeline = gsap.timeline({
 			scrollTrigger: {
 				trigger: ".hangout-container",
@@ -1346,7 +1316,6 @@ window.onload = function () {
 				ease: "bounce.out",
 			});
 	};
-	HangoutWithUs();
 
 	//! <------------------------------------ Mobile Menu Section ------------------------------------>
 	const MobileMenu = () => {
@@ -1452,10 +1421,8 @@ window.onload = function () {
 			});
 		});
 	};
-	MobileMenu();
 
 	//! <------------------------------------ Horizontal Scroll Indicator ------------------------------------>
-
 	const HorizontalScrollIndicator = () => {
 		const visionIndicator = document.querySelector(
 			".vision .horizontal-scroll-indicator"
@@ -1542,5 +1509,38 @@ window.onload = function () {
 			},
 		});
 	};
+
+	//! <------------------------------------ Prevent Logo Blocks Scroll Snap ------------------------------------>
+	const PreventLogoBlocksScrollSnap = () => {
+		const view = document.querySelector(".view");
+		const logoBlocks = document.querySelector(".logo-blocks");
+
+		view.addEventListener("scroll", () => {
+			const logoBlocksTop = logoBlocks.getBoundingClientRect().top;
+			const logoBlocksBottom = logoBlocks.getBoundingClientRect().bottom;
+
+			if (logoBlocksTop <= 0 && logoBlocksBottom >= window.innerHeight) {
+				// Disable scroll snap for logo-blocks section
+				view.style.scrollSnapType = "none";
+			} else {
+				// Enable scroll snap for other sections
+				view.style.scrollSnapType = "y mandatory";
+			}
+		});
+	};
+
+	OverflowYClipped();
+	WelcomeVideo();
+	AboutSection();
+	BuildSection();
+	Footer();
+	Partners();
+	Vision();
+	Roadmap();
+	LogoBlocksLottie();
+	FAQ();
+	HangoutWithUs();
+	MobileMenu();
 	HorizontalScrollIndicator();
+	PreventLogoBlocksScrollSnap();
 };
