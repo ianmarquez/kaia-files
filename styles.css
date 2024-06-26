@@ -169,12 +169,6 @@ Galazy Z fold 5 882 x 344
 
 /* Short height */
 @media only screen and (max-height: 830px) and (min-width: 440px) {
-	.vision-block-container .vision-block-one {
-		top: -25%;
-	}
-	.vision-block-container .vision-block-three {
-		top: -15%;
-	}
 	.roadmap-header {
 		font-size: 4.3rem;
 		line-height: 5.25rem;

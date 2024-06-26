@@ -27,10 +27,10 @@ window.onload = function () {
 				trigger,
 				scroller: ".view",
 				scrub: 1,
-				start: "left",
+				start: "left center",
 				end: "right",
 				...(!!markers ? { markers: true } : {}),
-				horizontal: true,
+				horizontal: !isMobile,
 			},
 		});
 	};
@@ -805,16 +805,19 @@ window.onload = function () {
 				}
 			);
 		});
-		backgroundTimelineVision(".vision").fromTo(
-			".vision-background",
-			{ x: "-25rem" },
-			{ x: "25rem" }
-		);
-
-		backgroundTimelineVision(".vision-background-mobile").to(
-			".vision-background-mobile",
-			{ x: "-25rem", duration: 0.5, ease: "power2.out" }
-		);
+		if (!isMobile) {
+			backgroundTimelineVision(".vision").fromTo(
+				".vision-background",
+				{ x: "-25rem" },
+				{ x: "25rem" }
+			);
+		} else {
+			backgroundTimelineVision(".vision-category-container").fromTo(
+				".vision-background-mobile",
+				{ x: "-25rem" },
+				{ x: "-5rem" }
+			);
+		}
 	};
 
 	// //! <------------------------------------ Roadmap Section ------------------------------------>
@@ -1288,11 +1291,19 @@ window.onload = function () {
 
 	//! <------------------------------------ Hangout Section ------------------------------------>
 	const HangoutWithUs = () => {
-		backgroundTimeline(".hangout").fromTo(
-			".hangout-outline-background",
-			{ x: "-10rem", x: "10rem" },
-			{ x: 0, y: 0 }
-		);
+		if (!isMobile) {
+			backgroundTimeline(".hangout").fromTo(
+				".hangout-outline-background",
+				{ x: "-10rem", x: "10rem" },
+				{ x: 0, y: 0 }
+			);
+		} else {
+			backgroundTimeline(".hangout").fromTo(
+				".hangout-outline-background",
+				{ y: "-10rem", y: "10rem" },
+				{ x: 0, y: 0 }
+			);
+		}
 
 		const hangoutTimeline = gsap.timeline({
 			scrollTrigger: {
@@ -1320,11 +1331,6 @@ window.onload = function () {
 	//! <------------------------------------ Mobile Menu Section ------------------------------------>
 	const MobileMenu = () => {
 		const mobileMenu = document.querySelector(".mobile-menu");
-		const view = document.querySelector(".view");
-		const aboutSection = document.querySelector(".about");
-		const aboutSectionHeight = aboutSection.offsetTop;
-		console.log(aboutSectionHeight);
-		let viewScrollY = view.scrollTop;
 
 		const handleScroll = () => {
 			gsap.set(mobileMenu, {
@@ -1342,7 +1348,6 @@ window.onload = function () {
 				})
 				.progress(1);
 
-			console.log(showAnim);
 			ScrollTrigger.create({
 				trigger: ".about",
 				start: "top top-=100",
@@ -1431,15 +1436,30 @@ window.onload = function () {
 			".roadmap .horizontal-scroll-indicator"
 		);
 
-		const visionIndicatorTimeline = gsap.timeline({
+		// Vision
+
+		gsap.to(visionIndicator, {
 			scrollTrigger: {
 				trigger: ".vision",
-				start: "center 60%",
-				scroller: ".view",
+				scrub: true,
+				start: "right right",
+				end: "right 60%",
+				scroller: ".vision-container",
+				horizontal: true,
 			},
+			opacity: 0,
+			x: 250,
+			ease: "power2.out",
 		});
 
-		visionIndicatorTimeline
+		gsap
+			.timeline({
+				scrollTrigger: {
+					trigger: ".vision",
+					start: "center 60%",
+					scroller: ".view",
+				},
+			})
 			.fromTo(
 				visionIndicator,
 				{
@@ -1456,29 +1476,30 @@ window.onload = function () {
 			})
 			.repeat(2);
 
-		gsap.to(visionIndicator, {
+		// Roadmap
+
+		gsap.to(roadmapIndicator, {
 			opacity: 0,
-			x: -100,
+			x: 200,
 			ease: "power2.out",
 			scrollTrigger: {
-				trigger: visionIndicator,
-				start: "center 60%",
-				end: "center 40%",
+				trigger: ".roadmap",
+				start: "right right",
+				end: "right 60%",
 				scrub: true,
-				scroller: ".vision-container",
-				anticipatePin: 1,
+				scroller: ".roadmap-container",
 				horizontal: true,
 			},
 		});
-		const roadmapIndicatorTimeline = gsap.timeline({
-			scrollTrigger: {
-				trigger: ".roadmap",
-				start: "center 60%",
-				scroller: ".view",
-			},
-		});
 
-		roadmapIndicatorTimeline
+		gsap
+			.timeline({
+				scrollTrigger: {
+					trigger: ".roadmap",
+					start: "center 60%",
+					scroller: ".view",
+				},
+			})
 			.fromTo(
 				roadmapIndicator,
 				{
@@ -1494,20 +1515,6 @@ window.onload = function () {
 				scale: 1,
 			})
 			.repeat(2);
-
-		gsap.to(roadmapIndicator, {
-			opacity: 0,
-			x: -100,
-			ease: "power2.out",
-			scrollTrigger: {
-				trigger: roadmapIndicator,
-				start: "center 60%",
-				end: "center 40%",
-				scrub: true,
-				scroller: ".roadmap-container",
-				horizontal: true,
-			},
-		});
 	};
 
 	//! <------------------------------------ Prevent Logo Blocks Scroll Snap ------------------------------------>
