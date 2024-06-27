@@ -126,14 +126,20 @@ body ::-webkit-scrollbar {
 		clip-path: inset(3px 0);
 	}
 
-	.vision-container {
+	.vision-container,
+	.roadmap-container {
 		scroll-snap-type: x mandatory;
 		scroll-behavior: smooth;
 	}
-	.vision-category {
+	.vision-category,
+	.long-vertical-line {
 		scroll-snap-align: start;
 		scroll-snap-stop: normal;
 		scroll-margin-left: 1.5rem;
+	}
+
+	.long-vertical-line {
+		scroll-margin-left: 9rem;
 	}
 }
 
