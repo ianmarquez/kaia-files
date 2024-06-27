@@ -172,4 +172,5 @@ const navBar = () => {
 }
 
 $(document).ready(navBar)
+$(window).on('resize', navBar);
 
