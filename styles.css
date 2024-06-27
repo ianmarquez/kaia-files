@@ -125,6 +125,16 @@ body ::-webkit-scrollbar {
 	.background-video-mobile {
 		clip-path: inset(3px 0);
 	}
+
+	.vision-container {
+		scroll-snap-type: x mandatory;
+		scroll-behavior: smooth;
+	}
+	.vision-category {
+		scroll-snap-align: start;
+		scroll-snap-stop: normal;
+		scroll-margin-left: 1.5rem;
+	}
 }
 
 .roadmap-rings {
