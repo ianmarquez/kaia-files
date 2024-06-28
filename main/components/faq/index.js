@@ -58,7 +58,6 @@ const faq = () => {
   }
 
   faqFilterChips.map(chip => {
-    console.log(chip)
     chip.onclick = () => closeAccordion()
   })
 
