@@ -4,6 +4,8 @@ const faq = () => {
   const faqContent = gsap.utils.toArray(".faq-item-content")
   const faqFilterChips = gsap.utils.toArray(".faq-filter-chip")
 
+  $("#all-filter").detach().prependTo(".faq-filter-collection-list")
+
 
   function closeAccordion() {
     if (openedIdx === undefined) return

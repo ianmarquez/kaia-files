@@ -171,7 +171,6 @@ const desktop = () => {
 
 const navBar = () => {
   const isTablet = document.body.clientWidth <= 991;
-  console.log('test')
   if (isTablet) return tablet()
 
   return desktop()
