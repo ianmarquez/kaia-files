@@ -19,10 +19,10 @@ const faq = () => {
     })
     timeline.to(openedHeader, {
       color: "var(--greyscale--fg--subtlest)",
-      textDecoration: "none"
+      // textDecoration: "none"
     }, "<")
     const [_, openedFAQSymbol] = gsap.utils.toArray(openedHeader.children)
-    timeline.to(openedFAQSymbol, { rotation: 90 }, "<")
+    timeline.to(openedFAQSymbol, { rotation: 0 }, "<")
 
     openedIdx = undefined
   }
@@ -41,7 +41,7 @@ const faq = () => {
       }, "<")
 
       const [_, openedFAQSymbol] = gsap.utils.toArray(faqHeaders[openedIdx].children)
-      timeline.to(openedFAQSymbol, { rotation: 90 }, "<")
+      timeline.to(openedFAQSymbol, { rotation: 0 }, "<")
 
     }
     timeline.to(faqContent[idx], {
@@ -50,10 +50,10 @@ const faq = () => {
 
     timeline.to(header, {
       color: "var(--brand--fg--neutral)",
-      textDecoration: "underline"
+      // textDecoration: "underline"
     }, "<")
 
-    timeline.to(symbol, { rotation: 270 }, "<")
+    timeline.to(symbol, { rotation: 45 }, "<")
 
   }
 
