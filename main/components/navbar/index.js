@@ -20,7 +20,9 @@ const tablet = () => {
 
   const closeAnimation = (menuItem, idx) => {
     const timeline = gsap.timeline()
+    timeline.timeScale(5)
     const [_, symbol] = gsap.utils.toArray(menuItem.children)
+
     timeline.to(menuItem, {
       color: "var(--greyscale--fg--subtlest)",
     }, "<")
@@ -35,6 +37,7 @@ const tablet = () => {
 
   const openAnimation = (menuItem, idx) => {
     const timeline = gsap.timeline()
+    timeline.timeScale(5)
     const [_, symbol] = gsap.utils.toArray(menuItem.children)
 
     timeline.to(menuItem, {
@@ -106,6 +109,7 @@ const desktop = () => {
 
   const closeAnimation = (menuItem, idx) => {
     const timeline = gsap.timeline()
+    timeline.timeScale(5)
     const [_, symbol] = gsap.utils.toArray(menuItem.children)
     timeline.to(menuItem, {
       color: "var(--brand--fg--neutral)"
@@ -122,6 +126,7 @@ const desktop = () => {
 
   const openAnimation = (menuItem, idx) => {
     const timeline = gsap.timeline()
+    timeline.timeScale(5)
     const [_, symbol] = gsap.utils.toArray(menuItem.children)
     timeline.to(menuItem, {
       color: "var(--brand--fg--neutral)"
@@ -166,6 +171,7 @@ const desktop = () => {
 
 const navBar = () => {
   const isTablet = document.body.clientWidth <= 991;
+  console.log('test')
   if (isTablet) return tablet()
 
   return desktop()
