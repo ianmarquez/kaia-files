@@ -119,7 +119,8 @@ body ::-webkit-scrollbar {
 
 	.hangout,
 	.about,
-	.build {
+	.build,
+	.footer-section {
 		overflow-y: visible !important;
 	}
 	.background-video-mobile {
