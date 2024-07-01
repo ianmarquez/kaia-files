@@ -921,8 +921,8 @@ window.onload = function () {
 						trigger: milestone,
 						scroller: ".view",
 						horizontal: true,
-						start: !isMobile ? "center 25%" : "center 40%",
-						end: !isMobile ? `right+=${space} 25%` : `right+=${space} 40%`,
+						start: "center 25%",
+						end: `right+=${space} 25%`,
 						scrub: 1,
 						...(isMobile && { scroller: ".roadmap-container" }),
 
@@ -998,8 +998,8 @@ window.onload = function () {
 						trigger: milestone,
 						scroller: ".view",
 						horizontal: true,
-						start: !isMobile ? "center 25%" : "center 40%",
-						end: !isMobile ? `right+=${space} 25%` : `right+=${space} 40%`,
+						start: "center 30%",
+						end: `right+=${space} 30%`,
 						scrub: 1,
 						...(isMobile && { scroller: ".roadmap-container" }),
 
