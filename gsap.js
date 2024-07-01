@@ -645,8 +645,6 @@ window.onload = function () {
 			".vision .vision-category"
 		);
 
-		console.log(visionTextMobile);
-
 		const visionBlockOne = gsap.utils.toArray(".vision-block.one");
 		const visionBlockTwo = gsap.utils.toArray(".vision-block.two");
 		const visionBlockThree = gsap.utils.toArray(".vision-block.three");
@@ -894,8 +892,8 @@ window.onload = function () {
 			gsap.to(element, {
 				scrollTrigger: {
 					trigger: element,
-					start: !isMobile ? "left 25%" : "left 40%",
-					end: !isMobile ? "right 25%" : "right 40%",
+					start: !isMobile ? "left 25%" : "left left+=150",
+					end: !isMobile ? "right 25%" : "right left+=150",
 					scroller: ".view",
 					horizontal: true,
 					scrub: 1,
@@ -998,8 +996,8 @@ window.onload = function () {
 						trigger: milestone,
 						scroller: ".view",
 						horizontal: true,
-						start: "center 30%",
-						end: `right+=${space} 30%`,
+						start: "center left+=150",
+						end: `right+=${space} left+=150`,
 						scrub: 1,
 						...(isMobile && { scroller: ".roadmap-container" }),
 
