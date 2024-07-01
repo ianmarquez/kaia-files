@@ -1,4 +1,4 @@
-const tablet = () => {
+const navbarTablet = () => {
   let openedIdx;
   const menuItems = gsap.utils.toArray('.nav-block')
   menuItems.pop()
@@ -171,8 +171,7 @@ const desktop = () => {
 
 const navBar = () => {
   const isTablet = document.body.clientWidth <= 991;
-  console.log('test')
-  if (isTablet) return tablet()
+  if (isTablet) return navbarTablet()
 
   return desktop()
 }
