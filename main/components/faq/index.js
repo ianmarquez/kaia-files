@@ -1,16 +1,37 @@
+let faqOpenedIndex;
+
+function closeAccordion(header, content) {
+  if (faqOpenedIndex === undefined || !header || !content) return
+  const openedHeader = header
+  const openedContent = content
+
+  const timeline = gsap.timeline()
+  timeline.timeScale(3)
+
+  timeline.to(openedContent, {
+    height: 0
+  })
+  timeline.to(openedHeader, {
+    color: "var(--greyscale--fg--subtlest)",
+    textDecoration: "none"
+  }, "<")
+  const [_, openedFAQSymbol] = gsap.utils.toArray(openedHeader.children)
+  timeline.to(openedFAQSymbol, { rotation: 0 }, "<")
+
+  faqOpenedIndex = undefined
+}
+
 const faq = () => {
-  let openedIdx;
   const faqHeaders = gsap.utils.toArray(".faq-header-div")
   const faqContent = gsap.utils.toArray(".faq-item-content")
   const faqFilterChips = gsap.utils.toArray(".faq-filter-chip")
 
   $("#all-filter").detach().prependTo(".faq-filter-collection-list")
 
-
   function closeAccordion() {
-    if (openedIdx === undefined) return
-    const openedHeader = faqHeaders[openedIdx]
-    const openedContent = faqContent[openedIdx]
+    if (faqOpenedIndex === undefined) return
+    const openedHeader = faqHeaders[faqOpenedIndex]
+    const openedContent = faqContent[faqOpenedIndex]
 
     const timeline = gsap.timeline()
     timeline.timeScale(3)
@@ -28,21 +49,22 @@ const faq = () => {
 
     openedIdx = undefined
   }
+  $("#all-filter").detach().prependTo(".faq-filter-collection-list")
 
   function openAccordion(header, idx) {
     const timeline = gsap.timeline()
     const [_, symbol] = gsap.utils.toArray(header.children)
     timeline.timeScale(3)
-    if (openedIdx !== undefined) {
-      timeline.to(faqContent[openedIdx], {
+    if (faqOpenedIndex !== undefined) {
+      timeline.to(faqContent[faqOpenedIndex], {
         height: 0
       })
-      timeline.to(faqHeaders[openedIdx], {
+      timeline.to(faqHeaders[faqOpenedIndex], {
         color: "var(--greyscale--fg--subtlest)",
         textDecoration: "none"
       }, "<")
 
-      const [_, openedFAQSymbol] = gsap.utils.toArray(faqHeaders[openedIdx].children)
+      const [_, openedFAQSymbol] = gsap.utils.toArray(faqHeaders[faqOpenedIndex].children)
       timeline.to(openedFAQSymbol, { rotation: 0 }, "<")
 
     }
@@ -60,20 +82,39 @@ const faq = () => {
   }
 
   faqFilterChips.map(chip => {
-    chip.onclick = () => closeAccordion()
+    chip.onclick = () => closeAccordion(faqHeaders[faqOpenedIndex], faqContent[faqOpenedIndex])
   })
 
   faqHeaders.map((header, idx) => {
     header.onclick = () => {
-      if (openedIdx !== idx) {
+      if (faqOpenedIndex !== idx) {
         openAccordion(header, idx)
-        openedIdx = idx
+        faqOpenedIndex = idx
       } else {
-        closeAccordion()
+        closeAccordion(faqHeaders[faqOpenedIndex], faqContent[faqOpenedIndex])
       }
     }
   })
 }
 
 
-$(document).ready(faq)
+$(document).ready(() => {
+  faq()
+
+  setTimeout(() => {
+    const pageButtons = gsap.utils.toArray(".faq-page-button")
+    const faqFilters = gsap.utils.toArray(".faq-filter-chip-container")
+    const items = [...pageButtons, ...faqFilters]
+
+    items.map(pageButton => {
+      pageButton.onclick = () => {
+        if (faqOpenedIndex !== undefined) {
+          const faqHeaders = gsap.utils.toArray(".faq-header-div")
+          const faqContent = gsap.utils.toArray(".faq-item-content")
+          closeAccordion(faqHeaders[faqOpenedIndex], faqContent[faqOpenedIndex])
+        }
+        setTimeout(faq, 500)
+      }
+    })
+  }, 500)
+})
