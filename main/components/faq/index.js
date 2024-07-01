@@ -33,32 +33,6 @@ const FAQBodyAnimation = () => {
 
   $("#all-filter").detach().prependTo(".faq-filter-collection-list");
 
-  function closeAccordion() {
-    if (faqOpenedIndex === undefined) return;
-    const openedHeader = faqHeaders[faqOpenedIndex];
-    const openedContent = faqContent[faqOpenedIndex];
-
-    const timeline = gsap.timeline();
-    timeline.timeScale(3);
-
-    timeline.to(openedContent, {
-      height: 0,
-    });
-    timeline.to(
-      openedHeader,
-      {
-        color: "var(--greyscale--fg--subtlest)",
-        // textDecoration: "none"
-      },
-      "<"
-    );
-    const [_, openedFAQSymbol] = gsap.utils.toArray(openedHeader.children);
-    timeline.to(openedFAQSymbol, { rotation: 0 }, "<");
-
-    openedIdx = undefined;
-  }
-  $("#all-filter").detach().prependTo(".faq-filter-collection-list");
-
   function openAccordion(header, idx) {
     const timeline = gsap.timeline();
     const [_, symbol] = gsap.utils.toArray(header.children);
