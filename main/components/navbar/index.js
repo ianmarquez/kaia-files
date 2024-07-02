@@ -4,16 +4,17 @@ const navbarTablet = () => {
   menuItems.pop();
   const drawerItems = gsap.utils.toArray(".navbar-drawer-content-div.tablet");
 
-  $(window).click(function () {
+  $(window).click(function() {
     if (openedIdx === undefined) return;
     closeAnimation(menuItems[openedIdx], openedIdx);
   });
 
-  $(".navbar-drawer-content-div.tablet").click(function (event) {
+
+  $(".navbar-drawer-content-div.tablet").click(function(event) {
     event.stopPropagation();
   });
 
-  $(".nav-block").click(function (event) {
+  $(".nav-block").click(function(event) {
     event.stopPropagation();
   });
 
@@ -117,16 +118,21 @@ const desktop = () => {
 
   menuItems.pop();
 
-  $(window).click(function () {
+  $(window).click(function() {
     if (openedIdx === undefined) return;
     closeAnimation(menuItems[openedIdx], openedIdx);
   });
 
-  $(".navbar-drawer").click(function (event) {
+  $(window).scroll(function() {
+    if (openedIdx === undefined) return;
+    closeAnimation(menuItems[openedIdx], openedIdx);
+  })
+
+  $(".navbar-drawer").click(function(event) {
     event.stopPropagation();
   });
 
-  $(".nav-block").click(function (event) {
+  $(".nav-block").click(function(event) {
     event.stopPropagation();
   });
 

@@ -123,4 +123,4 @@ function PartnersLoop() {
   horizontalLoop(firstItems, { reversed: true, speed: 0.5 });
 }
 
-$(document).ready(PartnersLoop);
+$(document).ready(() => setTimeout(PartnersLoop, 500));
