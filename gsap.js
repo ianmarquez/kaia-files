@@ -672,7 +672,7 @@ window.onload = function () {
 						scrollTrigger: {
 							trigger: category,
 							start: "left",
-							end: "+=40%",
+							end: "right",
 							horizontal: true,
 							scrub: 1,
 							scroller: ".view",
