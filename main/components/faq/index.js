@@ -103,7 +103,6 @@ function AnimateDropdown() {
   dropdownTimeline.timeScale(3);
 
   faqFilters.map((filter) => {
-    console.log(filter);
     filter.addEventListener("click", () => {
       closeDropdown();
       filterText.innerText = filter.innerText;
