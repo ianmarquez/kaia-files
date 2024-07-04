@@ -1,15 +1,15 @@
 .faq-filter-collection-list {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-  -webkit-touch-callout: none; /* iOS Safari */
+	-ms-overflow-style: none; /* Internet Explorer 10+ */
+	scrollbar-width: none; /* Firefox */
+	-webkit-touch-callout: none; /* iOS Safari */
 }
 
 .w-nav-overlay ::-webkit-scrollbar,
 .w-nav-overlay ::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 .faq-filter-button.w-radio-input:checked + span {
-  background-color: var(--brand--fg--neutral);
-  color: var(--greyscale--fg--stronger);
+	background-color: var(--dark-green--500);
+	/* color: var(--greyscale--fg--stronger); */
 }
