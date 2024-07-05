@@ -5,18 +5,22 @@ function OnChainNumbers() {
 
   const headings = gsap.utils.toArray(".onchain-heading")
   const imageContainers = gsap.utils.toArray(".onchain-image-container")
-  const MAPPING = ['transaction_per_sec', 'market_cap', 'average_block_time', 'average_tx_per_block']
+  const MAPPING = ['market_cap', 'transaction_per_sec', 'average_block_time', 'average_tx_per_block']
 
   $.ajax({
     url: "https://klaytn.foundation/wp-json/klaytn/v1/main",
   }).done(function(response) {
+    console.log(response)
     headings.map((heading, headingIdx) => {
       let content = response[MAPPING[headingIdx]];
-      if (headingIdx === 1) {
+      if (MAPPING[headingIdx] === 'market_cap') {
         content = (Math.abs(Number(content)) / 1.0e+6).toFixed(2) + "M"
       }
-      heading.innerText = content
+      const loadingIndicators = gsap.utils.toArray(".loading-spinner")
+      loadingIndicators.forEach(indicator => indicator.remove())
 
+      heading.style.display = 'block'
+      heading.innerText = content
     })
   });
 

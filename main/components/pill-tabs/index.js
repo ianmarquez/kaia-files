@@ -62,8 +62,6 @@ function clearGSAPVarsPillTabs() {
 
 function PillTabs() {
   isMobilePillTabs = document.body.clientWidth <= 767;
-
-  console.log(isMobilePillTabs)
   const pills = gsap.utils.toArray('.pill')
   const [_, two, three] = pills
 
