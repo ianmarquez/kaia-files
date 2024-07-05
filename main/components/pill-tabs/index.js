@@ -44,9 +44,26 @@ function showPillContent(pill) {
     .to(verticalBar, { rotation: 0 }, "<")
 }
 
-function PillTabsDesktop() {
-  isMobile = document.body.clientWidth <= 767;
+function clearGSAPVarsPillTabs() {
+  const pills = gsap.utils.toArray('.pill')
+  pills.map(pill => {
+    const [header, content] = gsap.utils.toArray(pill.children)
+    const iconContainer = header.children[1]
+    const verticalBar = iconContainer.children[1]
 
+    gsap.set(pill, { clearProps: "all" });
+    gsap.set(content, { clearProps: 'all' })
+    gsap.set(iconContainer, { clearProps: 'all' })
+    gsap.set(verticalBar, { clearProps: 'all' })
+    gsap.set(header, { clearProps: 'all' })
+  })
+
+}
+
+function PillTabs() {
+  isMobilePillTabs = document.body.clientWidth <= 767;
+
+  console.log(isMobilePillTabs)
   const pills = gsap.utils.toArray('.pill')
   const [_, two, three] = pills
 
@@ -65,5 +82,8 @@ function PillTabsDesktop() {
 
 };
 
-$(window).on("resize", PillTabsDesktop);
-$(document).ready(PillTabsDesktop);
+$(window).on("resize", () => {
+  clearGSAPVarsPillTabs()
+  PillTabs()
+});
+$(document).ready(PillTabs);
