@@ -3,15 +3,20 @@ window.html2canvas = html2canvas;
 function PoweredByKaia() {
   const cta = document.getElementById("export-partners-cta")
   const targetCanvas = document.querySelector('.partners-export-section')
+  const backgroundBlocks = gsap.utils.toArray('.background-export-div')
 
   cta.onclick = () => {
     const origPaddingX = targetCanvas.style.paddingRight
     const origPaddingY = targetCanvas.style.paddingTop
+    const origDisplay = backgroundBlocks[0].style.display
 
     targetCanvas.style.paddingRight = '2.81rem'
     targetCanvas.style.paddingLeft = '2.81rem'
     targetCanvas.style.paddingTop = '5rem'
     targetCanvas.style.paddingBottom = '5rem'
+    backgroundBlocks.map(block => {
+      block.style.display = 'none'
+    })
 
     html2canvas(targetCanvas, {
       backgroundColor: 'black',
@@ -34,6 +39,9 @@ function PoweredByKaia() {
       targetCanvas.style.paddingLeft = origPaddingX
       targetCanvas.style.paddingTop = origPaddingY
       targetCanvas.style.paddingBottom = origPaddingY
+      backgroundBlocks.map(block => {
+        block.style.display = origDisplay
+      })
     })
   }
 
