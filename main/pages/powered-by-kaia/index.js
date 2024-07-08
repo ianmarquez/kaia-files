@@ -5,7 +5,7 @@ function PoweredByKaia() {
   const targetCanvas = document.querySelector('.partners-export-section')
   const backgroundBlocks = gsap.utils.toArray('.background-export-div')
 
-  cta.onclick = () => {
+  function onClick() {
     const origPaddingX = targetCanvas.style.paddingRight
     const origPaddingY = targetCanvas.style.paddingTop
     const origDisplay = backgroundBlocks[0].style.display
@@ -20,7 +20,7 @@ function PoweredByKaia() {
 
     html2canvas(targetCanvas, {
       backgroundColor: 'black',
-      useCORS: true, //By passing this option in function Cross origin images will be rendered properly in the downloaded version of the PDF
+      useCORS: true,
     }).then(canvas => {
       canvas.style.display = 'none'
       canvas.style.padding = '10px'
@@ -45,8 +45,8 @@ function PoweredByKaia() {
     })
   }
 
-
+  cta.onclick = onClick
 }
 
-
 $(window).on("load", PoweredByKaia)
+
