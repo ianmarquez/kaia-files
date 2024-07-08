@@ -44,7 +44,8 @@ function showPillContent(pill) {
     .to(verticalBar, { rotation: 0 }, "<")
 }
 
-function clearGSAPVarsPillTabs() {
+function resetPillTabsState() {
+  openedPillIndex = 0
   const pills = gsap.utils.toArray('.pill')
   pills.map(pill => {
     const [header, content] = gsap.utils.toArray(pill.children)
@@ -81,7 +82,7 @@ function PillTabs() {
 };
 
 $(window).on("resize", () => {
-  clearGSAPVarsPillTabs()
+  resetPillTabsState()
   PillTabs()
 });
 $(document).ready(PillTabs);
