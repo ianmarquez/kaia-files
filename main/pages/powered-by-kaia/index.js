@@ -3,6 +3,7 @@ window.html2canvas = html2canvas;
 function PoweredByKaia() {
   const cta = document.getElementById("export-partners-cta")
   const targetCanvas = document.querySelector('.partners-export-section')
+
   cta.onclick = () => {
     const origPaddingX = targetCanvas.style.paddingRight
     const origPaddingY = targetCanvas.style.paddingTop
@@ -21,9 +22,10 @@ function PoweredByKaia() {
       document.body.appendChild(canvas)
       return canvas
     }).then(canvas => {
-      const image = canvas.toDataURL('image/png')
+      const image = canvas.toDataURL('image/bmp')
+      const fileName = `partners-list-${new Date().toJSON()}.bmp`
       const a = document.createElement('a')
-      a.setAttribute('download', `partners-list-${new Date().toJSON()}.png`)
+      a.setAttribute('download', fileName)
       a.setAttribute('href', image)
       a.click()
       canvas.remove()
