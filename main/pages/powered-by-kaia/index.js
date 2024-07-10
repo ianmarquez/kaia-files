@@ -5,6 +5,16 @@ function PoweredByKaia() {
   const targetCanvas = document.querySelector('.partners-export-section')
   const backgroundBlocks = gsap.utils.toArray('.background-export-div')
 
+  const listWells = gsap.utils.toArray('.partner-export-well')
+  console.log(listWells)
+
+  listWells.map(well => {
+    const emptyDiv = well.querySelector('.w-dyn-empty')
+    if (emptyDiv) {
+      well.style.display = 'none'
+    }
+  })
+
   function onClick() {
     const origPaddingX = targetCanvas.style.paddingRight
     const origPaddingY = targetCanvas.style.paddingTop
