@@ -156,11 +156,12 @@ function attachEventsAnimation() {
   listHeading.addEventListener('click', hideList)
 
   function hideList() {
+    timeline.reverse()
     window.ecosystemListVisible = false;
     window.selectedPartnerCategory = ''
-    timeline.reverse()
     heading.innerText = ''
     searchContent.innerText = ''
+    searchBar.value = ''
     updateEcosystemExportUrl()
   }
 
