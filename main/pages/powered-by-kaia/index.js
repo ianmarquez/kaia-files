@@ -6,14 +6,27 @@ function PoweredByKaia() {
   const backgroundBlocks = gsap.utils.toArray('.background-export-div')
 
   const listWells = gsap.utils.toArray('.partner-export-well')
-  console.log(listWells)
+  const urlParams = new URLSearchParams(window.location.search);
+  const category = urlParams.get('category')
 
-  listWells.map(well => {
-    const emptyDiv = well.querySelector('.w-dyn-empty')
-    if (emptyDiv) {
-      well.style.display = 'none'
-    }
-  })
+
+  if (category) {
+    listWells.map(well => {
+      const wellHeader = well.querySelector('.partner-export-well-header')
+      if (wellHeader.innerText.toLowerCase() === category.toLowerCase()) {
+        well.style.display = 'flex'
+      } else {
+        well.style.display = 'none'
+      }
+    })
+  } else {
+    listWells.map(well => {
+      const emptyDiv = well.querySelector('.w-dyn-empty')
+      if (emptyDiv) {
+        well.style.display = 'none'
+      }
+    })
+  }
 
   function onClick() {
     const origPaddingX = targetCanvas.style.paddingRight

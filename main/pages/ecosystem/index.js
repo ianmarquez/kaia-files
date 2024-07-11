@@ -1,5 +1,6 @@
 window.ecosystemListVisible = false;
 window.searching = false;
+window.selectedPartnerCategory = null;
 
 function ecosystemGetFormFactor() {
   let response = 'desktop'
@@ -156,9 +157,11 @@ function attachEventsAnimation() {
 
   function hideList() {
     window.ecosystemListVisible = false;
+    window.selectedPartnerCategory = ''
     timeline.reverse()
     heading.innerText = ''
     searchContent.innerText = ''
+    updateEcosystemExportUrl()
   }
 
   function showList(filterVal) {
@@ -166,12 +169,32 @@ function attachEventsAnimation() {
       return
     }
     if (filterVal) {
-
       heading.innerText = filterVal
     }
+
     timeline.play()
     window.ecosystemListVisible = true;
+    window.selectedPartnerCategory = filterVal
+    updateEcosystemExportUrl()
   }
+}
+
+function setEcosystemDefaultSort() {
+  const button = document.getElementById('default-sort')
+  button.click()
+}
+
+function updateEcosystemExportUrl() {
+  const selectedCategery = window.selectedPartnerCategory
+  const exportButton = document.getElementById('ecosystem-export-button')
+  const redirectURL = exportButton.getAttribute('href')
+  let newUrl = ''
+  if (!selectedCategery) {
+    newUrl = redirectURL.split('?')[0]
+  } else {
+    newUrl = redirectURL + `?category=${selectedCategery}`
+  }
+  return exportButton.setAttribute('href', newUrl)
 }
 
 
@@ -179,6 +202,7 @@ function Ecosystem() {
   const formFactor = ecosystemGetFormFactor()
   attachEventsAnimation()
   setTimeout(() => formatEcosystemFilterCircles(formFactor), 100)
+  setEcosystemDefaultSort()
 }
 
 $(window).on('resize', Ecosystem)
