@@ -1,7 +1,6 @@
 const navbarTablet = () => {
 	let openedIdx;
-	const menuItems = gsap.utils.toArray(".nav-block");
-	menuItems.pop();
+	const menuItems = gsap.utils.toArray(".nav-block.expandable");
 	const drawerItems = gsap.utils.toArray(".navbar-drawer-content-div.tablet");
 
 	$(window).click(function () {
@@ -42,6 +41,9 @@ const navbarTablet = () => {
 	};
 
 	const openAnimation = (menuItem, idx) => {
+		const viewportHeight =
+			window.innerHeight || document.documentElement.clientHeight;
+
 		const timeline = gsap.timeline();
 		timeline.timeScale(5);
 		const [_, symbol] = gsap.utils.toArray(menuItem.children);
@@ -103,19 +105,17 @@ const navbarTablet = () => {
 };
 
 const desktop = () => {
-	const menuItems = gsap.utils.toArray(".nav-block");
+	const menuItems = gsap.utils.toArray(".nav-block.expandable");
 	const drawerItems = gsap.utils.toArray(".navbar-drawer-content-div.desktop");
+	const drawer = document.querySelector(".navbar-drawer");
 	const heightMap = {
-		0: "18rem",
+		0: "19rem",
 		1: "24rem",
-		2: "12rem",
-		3: "14rem",
-		4: "18rem",
+		2: "14rem",
+		3: "18rem",
 	};
 
 	let openedIdx;
-
-	menuItems.pop();
 
 	const closeAnimation = (menuItem, idx) => {
 		const timeline = gsap.timeline();
@@ -195,38 +195,51 @@ const desktop = () => {
 		);
 	};
 
+	let isMouseOverNav = false;
+	let isMouseOverDrawer = false;
+	let navMouseLeaveTimeout;
+
+	function checkMouseLeave() {
+		if (!isMouseOverNav && !isMouseOverDrawer) {
+			if (openedIdx !== undefined) {
+				closeAnimation(menuItems[openedIdx], openedIdx);
+				openedIdx = undefined;
+			}
+		}
+	}
+
 	menuItems.forEach((menuItem, idx) => {
 		menuItem.addEventListener("mouseover", () => {
 			if (openedIdx !== idx) {
 				openAnimation(menuItem, idx);
 				openedIdx = idx;
 			}
-		});
-	});
-
-	drawerItems.forEach((drawerItem, idx) => {
-		drawerItem.addEventListener("mouseover", () => {
-			if (openedIdx === idx) {
-				clearTimeout(drawerItem.closeTimeout);
-			}
+			isMouseOverNav = true;
+			clearTimeout(navMouseLeaveTimeout);
 		});
 
-		drawerItem.addEventListener("mouseout", (event) => {
-			if (
-				!drawerItem.contains(event.relatedTarget) &&
-				!menuItems[idx].contains(event.relatedTarget)
-			) {
-				drawerItem.closeTimeout = setTimeout(() => {
-					closeAnimation(menuItems[idx], idx);
-					openedIdx = undefined;
-				}, 10);
-			}
+		menuItem.addEventListener("mouseleave", () => {
+			navMouseLeaveTimeout = setTimeout(() => {
+				isMouseOverNav = false;
+				checkMouseLeave();
+			}, 100);
+		});
+
+		drawer.addEventListener("mouseenter", function () {
+			isMouseOverDrawer = true;
+			isMouseOverNav = false;
+			clearTimeout(navMouseLeaveTimeout);
+		});
+
+		drawer.addEventListener("mouseleave", function () {
+			isMouseOverDrawer = false;
+			checkMouseLeave();
 		});
 	});
 };
 
 const navBar = () => {
-	const isTablet = document.body.clientWidth <= 991;
+	const isTablet = document.body.clientWidth <= 1180;
 	if (isTablet) return navbarTablet();
 
 	return desktop();
