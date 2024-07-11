@@ -1,5 +1,6 @@
 window.ecosystemListVisible = false;
 window.searching = false;
+window.ecosystemLoaded = false;
 window.selectedPartnerCategory = null;
 
 function ecosystemGetFormFactor() {
@@ -93,13 +94,16 @@ function formatEcosystemFilterCircles(formFactor) {
     link.style.top = (x + radius - offsetHeight) + 'px'
     link.style.left = (y + radius - offsetWidth) + 'px'
 
-    gsap.from(link, {
-      opacity: 0,
-      scale: 0.4,
-      ease: Power1.easeInOut,
-      duration: 0.3
-    })
+    if (window.ecosystemLoaded === false) {
+      gsap.from(link, {
+        opacity: 0,
+        scale: 0.4,
+        ease: Power1.easeInOut,
+        duration: 0.3
+      })
+    }
   }
+  window.ecosystemLoaded = true
 }
 
 function attachEventsAnimation() {
