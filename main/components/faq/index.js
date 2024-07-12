@@ -1,8 +1,8 @@
-let faqOpenedIndex;
+window.faqOpenedIndex = undefined;
 let isFaqMobile = false;
 
 function closeAccordion(header, content) {
-  if (faqOpenedIndex === undefined || !header || !content) return;
+  if (window.faqOpenedIndex === undefined || !header || !content) return;
   const openedHeader = header;
   const openedContent = content;
 
@@ -23,7 +23,7 @@ function closeAccordion(header, content) {
   const [_, openedFAQSymbol] = gsap.utils.toArray(openedHeader.children);
   timeline.to(openedFAQSymbol, { rotation: 0 }, "<");
 
-  faqOpenedIndex = undefined;
+  window.faqOpenedIndex = undefined;
 }
 
 const FAQBodyAnimation = () => {
@@ -37,12 +37,12 @@ const FAQBodyAnimation = () => {
     const timeline = gsap.timeline();
     const [_, symbol] = gsap.utils.toArray(header.children);
     timeline.timeScale(3);
-    if (faqOpenedIndex !== undefined) {
-      timeline.to(faqContent[faqOpenedIndex], {
+    if (window.faqOpenedIndex !== undefined) {
+      timeline.to(faqContent[window.faqOpenedIndex], {
         height: 0,
       });
       timeline.to(
-        faqHeaders[faqOpenedIndex],
+        faqHeaders[window.faqOpenedIndex],
         {
           color: "var(--greyscale--fg--subtlest)",
           textDecoration: "none",
@@ -51,7 +51,7 @@ const FAQBodyAnimation = () => {
       );
 
       const [_, openedFAQSymbol] = gsap.utils.toArray(
-        faqHeaders[faqOpenedIndex].children
+        faqHeaders[window.faqOpenedIndex].children
       );
       timeline.to(openedFAQSymbol, { rotation: 0 }, "<");
     }
@@ -77,16 +77,16 @@ const FAQBodyAnimation = () => {
 
   faqFilterChips.map((chip) => {
     chip.onclick = () =>
-      closeAccordion(faqHeaders[faqOpenedIndex], faqContent[faqOpenedIndex]);
+      closeAccordion(faqHeaders[window.faqOpenedIndex], faqContent[window.faqOpenedIndex]);
   });
 
   faqHeaders.map((header, idx) => {
     header.onclick = () => {
-      if (faqOpenedIndex !== idx) {
+      if (window.faqOpenedIndex !== idx) {
         openAccordion(header, idx);
-        faqOpenedIndex = idx;
+        window.faqOpenedIndex = idx;
       } else {
-        closeAccordion(faqHeaders[faqOpenedIndex], faqContent[faqOpenedIndex]);
+        closeAccordion(faqHeaders[window.faqOpenedIndex], faqContent[window.faqOpenedIndex]);
       }
     };
   });
@@ -145,22 +145,23 @@ function AnimateDropdown() {
 }
 
 function AttachFAQEventsOnDOMLifecycle() {
-  const mobilePageIndicator = document.getElementById("faq-page-indicator");
+  const faqSection = document.getElementById('faq-container')
+  const mobilePageIndicator = faqSection.querySelector(".list-pagination-page-button.mobile");
   isFaqMobile = document.body.clientWidth <= 767;
 
   FAQBodyAnimation();
   AnimateDropdown();
 
   setTimeout(() => {
-    const pageButtons = gsap.utils.toArray(".faq-page-button");
+    const pageButtons = gsap.utils.toArray(".list-pagination-page-button");
     const faqFilters = gsap.utils.toArray(".faq-filter-chip-container");
-    const paginationNavBtns = gsap.utils.toArray(".faq-pagination-nav-button");
+    const paginationNavBtns = gsap.utils.toArray(".list-pagination-nav-button");
 
     function onButtonClick() {
-      if (faqOpenedIndex !== undefined) {
+      if (window.faqOpenedIndex !== undefined) {
         const faqHeaders = gsap.utils.toArray(".faq-header-div");
         const faqContent = gsap.utils.toArray(".faq-item-content");
-        closeAccordion(faqHeaders[faqOpenedIndex], faqContent[faqOpenedIndex]);
+        closeAccordion(faqHeaders[window.faqOpenedIndex], faqContent[window.faqOpenedIndex]);
       }
       setTimeout(FAQBodyAnimation, 500);
     }
@@ -179,6 +180,7 @@ function AttachFAQEventsOnDOMLifecycle() {
     paginationNavBtns.map((paginationBtn) => {
       paginationBtn.onclick = () => {
         const buttonType = paginationBtn.classList[0];
+        console.log('clicked')
         if (buttonType === "w-pagination-previous") {
           mobilePageIndicator.innerText =
             parseInt(mobilePageIndicator.innerText) - 1;
