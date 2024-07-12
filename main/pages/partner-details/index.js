@@ -2,6 +2,8 @@
 function PartnerDetails() {
   const copyLinks = gsap.utils.toArray('.copy-link')
   const reportBtn = document.querySelector('.report-button')
+  const copiedContainer = document.getElementById('copied-container')
+  console.log(copiedContainer)
 
   copyLinks.map(link => {
     link.addEventListener('click', () => {
@@ -10,9 +12,10 @@ function PartnerDetails() {
       navigator.clipboard.writeText(url).then(() => {
         const icons = gsap.utils.toArray(container.children)
         gsap.timeline()
+          .to(copiedContainer, { opacity: 1 })
           .to(icons[0], {
             opacity: 0,
-          })
+          }, "<")
           .to(icons[1], {
             opacity: 1,
           }, "<")
@@ -22,6 +25,7 @@ function PartnerDetails() {
           .to(icons[0], {
             opacity: 1,
           }, '<')
+          .to(copiedContainer, { opacity: 0 })
       }, (err) => {
         console.log(err)
       })
