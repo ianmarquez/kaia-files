@@ -180,7 +180,6 @@ function AttachFAQEventsOnDOMLifecycle() {
     paginationNavBtns.map((paginationBtn) => {
       paginationBtn.onclick = () => {
         const buttonType = paginationBtn.classList[0];
-        console.log('clicked')
         if (buttonType === "w-pagination-previous") {
           mobilePageIndicator.innerText =
             parseInt(mobilePageIndicator.innerText) - 1;
