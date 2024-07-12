@@ -6,8 +6,22 @@ function PartnerDetails() {
   copyLinks.map(link => {
     link.addEventListener('click', () => {
       const url = link.getAttribute('external-url')
+      const container = link.children[0]
       navigator.clipboard.writeText(url).then(() => {
-        console.log('copied:', url)
+        const icons = gsap.utils.toArray(container.children)
+        gsap.timeline()
+          .to(icons[0], {
+            opacity: 0,
+          })
+          .to(icons[1], {
+            opacity: 1,
+          }, "<")
+          .to(icons[1], {
+            opacity: 0,
+          })
+          .to(icons[0], {
+            opacity: 1,
+          }, '<')
       }, (err) => {
         console.log(err)
       })
