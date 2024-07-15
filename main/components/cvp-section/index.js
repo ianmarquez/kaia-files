@@ -5,12 +5,14 @@ function hideContent(content, header) {
 	hideTimeline.timeScale(2);
 
 	hideTimeline
-		.to(content, { opacity: 0, y: -20, duration: 1 })
-		.to(header, { color: "var(--greyscale--fg--subtlest)" }, "<");
+		.to(content, { opacity: 0, y: -20, duration: 0.5 })
+		.to(header, { opacity: 0.5 }, "<")
+		.to(header.children[0], { color: "var(--greyscale--fg--subtlest)" }, "<");
 }
 
 function showContent(content, header) {
 	const color = getComputedStyle(header).borderBottomColor;
+	console.log(color);
 
 	const showTimeline = gsap.timeline({
 		onStart: function () {
@@ -29,11 +31,13 @@ function showContent(content, header) {
 			{
 				opacity: 1,
 				y: 0,
-				duration: 1,
+				duration: 0.5,
+				delay: 0.5,
 			},
 			"<"
 		)
-		.to(header, { color: color }, "<");
+		.to(header, { opacity: 1 }, "<")
+		.to(header.children[0], { color: color }, "<");
 }
 
 function CVPSection() {
@@ -47,13 +51,12 @@ function CVPSection() {
 	hideContent(contentThree, tabThree);
 
 	cvpTabs.map((tab, idx) => {
-		const color = getComputedStyle(tab).borderBottomColor;
 		tab.onmouseover = () => {
-			tab.style.color = color;
+			tab.style.opacity = 1;
 		};
 		tab.onmouseout = () => {
 			if (idx !== openedTabIndex) {
-				tab.style.color = "var(--greyscale--fg--subtlest)";
+				tab.style.opacity = 0.5;
 			}
 		};
 		tab.onclick = () => {

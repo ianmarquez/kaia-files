@@ -110,8 +110,18 @@ function PillTabs() {
 	});
 }
 
+let previousWidth = $(window).width();
+
 $(window).on("resize", () => {
-	resetPillTabsState();
+	let currentWidth = $(window).width();
+	if (currentWidth !== previousWidth) {
+		resetPillTabsState();
+		PillTabs();
+		previousWidth = currentWidth;
+	}
+});
+
+$(document).ready(() => {
+	previousWidth = $(window).width();
 	PillTabs();
 });
-$(document).ready(PillTabs);

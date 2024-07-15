@@ -34,7 +34,7 @@ function PartnerMarquee() {
 	});
 }
 
-$(window).on("load", PartnerMarquee);
+$(window).on("load", resetMarquee);
 
 $(window).on("resize", () => {
 	clearTimeout(window.resizeTimeout);
