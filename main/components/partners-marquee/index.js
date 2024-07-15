@@ -2,6 +2,8 @@ let partnerMarqueeStarted = false;
 let partnerMarqueeScrollTrigger;
 
 function resetMarquee() {
+	const item = gsap.utils.toArray(".partner-showcase-item");
+	console.log(item);
 	if (partnerMarqueeScrollTrigger) {
 		partnerMarqueeScrollTrigger.kill();
 	}
@@ -21,34 +23,23 @@ function PartnerMarquee() {
 
 	horizontalLoop(secondItems, { speed: 0.5 });
 	horizontalLoop(firstItems, { reversed: true, speed: 0.5 });
-
-	partnerMarqueeScrollTrigger = gsap.timeline({
-		scrollTrigger: {
-			trigger: ".partner-showcase-section",
-			start: "top-=300 center",
-			end: "top-=300 center",
-			onEnter: () => {
-				partnerMarqueeStarted = true;
-			},
-		},
-	});
+	partnerMarqueeStarted = true;
 }
 
-let previousWidth = $(window).width();
+let partnersPreviousWidth = $(window).width();
 
 $(window).on("resize", () => {
 	clearTimeout(window.resizeTimeout);
 
 	let currentWidth = $(window).width();
-	if (currentWidth !== previousWidth) {
+	if (currentWidth !== partnersPreviousWidth) {
 		window.resizeTimeout = setTimeout(resetMarquee, 200);
-		resetMarquee();
-		previousWidth = currentWidth;
+		partnersPreviousWidth = currentWidth;
 	}
 });
 
 $(document).ready(() => {
-	previousWidth = $(window).width();
+	partnersPreviousWidth = $(window).width();
 	clearTimeout(window.resizeTimeout);
 	window.resizeTimeout = setTimeout(PartnerMarquee, 200);
 });
