@@ -13,3 +13,7 @@
 	background-color: var(--dark-green--500);
 	/* color: var(--greyscale--fg--stronger); */
 }
+
+input[type="radio"] {
+	display: none;
+}

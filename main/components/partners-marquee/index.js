@@ -34,9 +34,21 @@ function PartnerMarquee() {
 	});
 }
 
-$(window).on("load", resetMarquee);
+let previousWidth = $(window).width();
 
 $(window).on("resize", () => {
 	clearTimeout(window.resizeTimeout);
-	window.resizeTimeout = setTimeout(resetMarquee, 200);
+
+	let currentWidth = $(window).width();
+	if (currentWidth !== previousWidth) {
+		window.resizeTimeout = setTimeout(resetMarquee, 200);
+		resetMarquee();
+		previousWidth = currentWidth;
+	}
+});
+
+$(document).ready(() => {
+	previousWidth = $(window).width();
+	clearTimeout(window.resizeTimeout);
+	window.resizeTimeout = setTimeout(PartnerMarquee, 200);
 });
