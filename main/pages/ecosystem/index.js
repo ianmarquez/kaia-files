@@ -25,20 +25,20 @@ function formatEcosystemFilterCircles(formFactor) {
   let rightBiasMultiplier = -0.9
 
   if (formFactor === 'tablet') {
-    circleRadius = 85;
-    centralCircleRadius = 120;
-    leftBiasMultiplier = 0.7
+    circleRadius = 120;
+    centralCircleRadius = 150;
+    leftBiasMultiplier = 0.9
     rightBiasMultiplier = -0.8
   } else if (formFactor === 'landscape') {
     circleRadius = 120;
-    centralCircleRadius = 120;
+    centralCircleRadius = 140;
     leftBiasMultiplier = 0.7
     rightBiasMultiplier = -0.8
   } else if (formFactor === 'mobile') {
     circleRadius = 120;
-    centralCircleRadius = 120;
-    leftBiasMultiplier = 0.7
-    rightBiasMultiplier = 0.7
+    centralCircleRadius = 140;
+    leftBiasMultiplier = 0.8
+    rightBiasMultiplier = 1
   }
 
 
@@ -239,10 +239,20 @@ function ecosystemPageIncrementEvents() {
 function Ecosystem() {
   const formFactor = ecosystemGetFormFactor()
   attachEventsAnimation()
-  setTimeout(() => formatEcosystemFilterCircles(formFactor), 100)
-  setEcosystemDefaultSort()
+  setTimeout(() => {
+    formatEcosystemFilterCircles(formFactor)
+  }, 100)
   ecosystemPageIncrementEvents()
 }
 
-$(window).on('resize', Ecosystem)
-$(window).on("load", Ecosystem)
+$(document).ready(() => {
+  setEcosystemDefaultSort()
+  var windowWidth = $(window).width();
+  Ecosystem()
+  $(window).resize(function() {
+    if ($(window).width() != windowWidth) {
+      windowWidth = $(window).width();
+      Ecosystem()
+    }
+  });
+})
