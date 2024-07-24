@@ -19,3 +19,7 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.radio-button-label {
+  text-wrap: nowrap;
+}
