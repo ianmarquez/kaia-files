@@ -140,16 +140,6 @@ function attachEventsAnimation() {
       duration: 0.3,
     })
     .to(filterDiv, { zIndex: -1, ease: Power1.easeInOut, duration: 0.3 }, "<")
-    .from(listHeading, {
-      opacity: 0,
-      ease: Power1.easeInOut,
-      duration: 0.3,
-    },)
-    .from(list, {
-      opacity: 0,
-      duration: 0.3,
-      ease: Power1.easeInOut,
-    }, "<")
     .to(filterDiv, {
       duration: 0.3,
       ease: Power1.easeInOut,
