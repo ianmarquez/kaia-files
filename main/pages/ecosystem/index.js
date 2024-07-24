@@ -21,7 +21,7 @@ function ecosystemGetFormFactor() {
 function formatEcosystemFilterCircles(formFactor) {
   let circleRadius = 175;
   let centralCircleRadius = 195;
-  let leftBiasMultiplier = 0.8
+  let leftBiasMultiplier = 0.9
   let rightBiasMultiplier = -0.9
 
   if (formFactor === 'tablet') {
@@ -110,7 +110,7 @@ function attachEventsAnimation() {
   const cardsSection = document.getElementById('ecosystem-cards-section')
   const filters = gsap.utils.toArray('.ecosystem-partners-filter-list-item ');
   const filterDiv = cardsSection.querySelector('.ecosystem-partner-header-content-div')
-  const list = cardsSection.querySelector('.ecosystem-partners-list-wrapper')
+  const list = cardsSection.querySelector('.ecosystem-partner-content-div')
   const listHeading = cardsSection.querySelector('.ecosystem-partners-list-block-heading')
   const searchBar = cardsSection.querySelector('.search')
   const [_, heading, searchContent] = gsap.utils.toArray(listHeading.children)
@@ -119,6 +119,7 @@ function attachEventsAnimation() {
     const textboxVal = e.target.value
     if (!window.ecosystemListVisible) {
       showList()
+      setEcosystemDefaultSort()
     }
 
     if (textboxVal.length > 0) {
@@ -136,7 +137,7 @@ function attachEventsAnimation() {
     .to(filterDiv, {
       opacity: 0,
       ease: Power1.easeInOut,
-      duration: 0.3
+      duration: 0.3,
     })
     .to(filterDiv, { zIndex: -1, ease: Power1.easeInOut, duration: 0.3 }, "<")
     .from(listHeading, {
@@ -149,6 +150,17 @@ function attachEventsAnimation() {
       duration: 0.3,
       ease: Power1.easeInOut,
     }, "<")
+    .to(filterDiv, {
+      duration: 0.3,
+      ease: Power1.easeInOut,
+      height: 0,
+      padding: 0,
+    })
+    .to(list, {
+      duration: 0.3,
+      ease: Power1.easeInOut,
+      height: 'auto'
+    }, '<')
 
   filters.map(filter => {
     filter.addEventListener('click', () => {
@@ -157,7 +169,9 @@ function attachEventsAnimation() {
     })
   })
 
-  listHeading.addEventListener('click', hideList)
+  listHeading.addEventListener('click', () => {
+    setTimeout(hideList, 10)
+  })
 
   function hideList() {
     const ecosystemCardsSection = document.getElementById('ecosystem-cards-section')
@@ -222,7 +236,9 @@ function ecosystemPageIncrementEvents() {
         mobilePageIndicator.innerText =
           parseInt(mobilePageIndicator.innerText) + 1;
       }
-      listHeading.scrollIntoView({ behavior: "smooth", block: "center" })
+      if (ecosystemGetFormFactor() !== 'desktop') {
+        listHeading.scrollIntoView({ behavior: "smooth", block: "center" })
+      }
     };
     paginationBtn.addEventListener('click', onClick)
   });

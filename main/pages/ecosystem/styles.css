@@ -4,3 +4,18 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.ecosystem-partners-filter-list-item {
+  z-index: 2;
+}
+
+.ecosystem-partner-card {
+  height: 100%;
+}
+
+.ecosystem-partner-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
