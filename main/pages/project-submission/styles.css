@@ -1,0 +1,15 @@
+.select-radio:checked ~ .select-label {
+  background-color: #144625;
+}
+
+textarea {
+  resize: none;
+}
+
+.file-upload {
+  height: fit-content;
+}
+
+.button-icon-wrapper {
+  width: fit-content;
+}
