@@ -27,33 +27,178 @@ function wordCount() {
     });
 }
 
-//! -------------------------------------- Submit Form -------------------------------------- //
-function submitForm() {
-  var form = document.querySelector("#wf-form-Project-Submission");
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
 
-    // Target checkboxes by their specific name attributes or a class if they have one
+function validateRequiredFieldTextBox(id) {
+  const formControl = document.getElementById(id)
+  let input = formControl.querySelector('input')
+  if (!input) {
+    input = formControl.querySelector('textarea')
+  }
+  const errorDiv = formControl.querySelector('.error-container')
+  if (input.value && input.value.length > 0) {
+    gsap.to(errorDiv, {
+      display: 'none'
+    })
+    $(formControl).removeClass('has-error')
+    return true;
+  }
+  gsap.timeline()
+    .to(errorDiv, {
+      display: 'flex'
+    }).to(errorDiv.children, {
+      display: 'flex'
+    }, '<')
+  $(formControl).addClass('has-error')
+  return false
+}
 
-    var checkboxes = form.querySelectorAll(".select-checkbox");
-    var checkboxesArray = Array.from(checkboxes); // Convert NodeList to Array
+function validateValidUrl(formControl) {
+  let input = formControl.querySelector('input')
+  let isValid = true;
+  const errorDiv = formControl.querySelector('.error-container')
+  const [_, required] = gsap.utils.toArray(errorDiv.children)
 
-    checkboxesArray.forEach(function(checkbox) {
-      if (checkbox.checked) {
-        let siblingText = checkbox.nextElementSibling.innerText;
-        checkbox.value = siblingText;
-      }
-    });
+  try {
+    new URL(input.value)
+  } catch (err) {
+    isValid = false
+  }
 
-    // Debug: Log the FormData to see what's being submitted. Remove this in production.
-    var formData = new FormData(form);
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
+  if (isValid) {
+    gsap.to(errorDiv, {
+      display: 'none'
+    })
+    $(formControl).removeClass('has-error')
+    return true;
+  }
+
+  gsap.timeline()
+    .to(errorDiv, {
+      display: 'flex'
+    })
+    .to(required, {
+      display: 'none'
+    })
+  $(formControl).addClass('has-error')
+}
+
+function validateRequiredRadio(id) {
+  const formControl = document.getElementById(id)
+  const inputs = gsap.utils.toArray(formControl.querySelectorAll('input'))
+  let input;
+  const errorDiv = formControl.querySelector('.error-container')
+  let hasChecked = false;
+  inputs.map(radio => {
+    if (radio.checked) {
+      hasChecked = true
+      input = radio
     }
-    console.log(formData);
-    // Submit the form
-    //		form.submit();
-  });
+  })
+  if (hasChecked) {
+    gsap.to(errorDiv, {
+      display: 'none'
+    })
+    $(formControl).removeClass('has-error')
+    return true;
+  }
+  $(formControl).addClass('has-error')
+  gsap.to(errorDiv, {
+    display: 'flex'
+  })
+  return false
+}
+
+
+function validateProjectName() {
+  return validateRequiredFieldTextBox("project-name")
+}
+
+function validateProjectCategory() {
+  return validateRequiredRadio('project-category')
+}
+
+function validateProjectDescription() {
+  return validateRequiredFieldTextBox('project-description')
+}
+
+function validateProjectContractAddress() {
+  return validateRequiredFieldTextBox('project-contract-address')
+}
+
+function validateProjectWebsite() {
+  const requireCheck = validateRequiredFieldTextBox('project-website')
+  if (!requireCheck) return requireCheck
+  const formControl = document.getElementById('project-website')
+  return validateValidUrl(formControl)
+}
+
+function validateProjectTelegramId() {
+  const formControl = document.getElementById('telegram-id')
+  const requireCheck = validateRequiredFieldTextBox('telegram-id')
+  if (!requireCheck) return requireCheck
+  return validateValidUrl(formControl)
+}
+
+function validateSocials() {
+  let isValid = 0
+  const socialsFormControls = gsap.utils.toArray('.socials-input-container')
+  socialsFormControls.map(formControl => {
+    const input = formControl.querySelector('input')
+    if (input.value && input.value.length > 0) {
+      const result = validateValidUrl(formControl) ? 0 : 1
+      isValid += result
+    }
+  })
+  return isValid
+}
+
+function validateCheckbox() {
+  const formControl = document.querySelector('.check-box-container')
+  const errorDiv = formControl.querySelector('.error-container')
+  const input = formControl.querySelector('input')
+
+  if (input.checked) {
+    gsap.to(errorDiv, {
+      display: 'none'
+    })
+    $(formControl).removeClass('has-error')
+    return true;
+  }
+
+  console.log(errorDiv)
+  gsap.to(errorDiv, {
+    display: 'flex'
+  })
+  $(formControl).addClass('has-error')
+
+  return false;
+}
+
+function attachValidationToForm() {
+  const fauxSubmitButton = document.getElementById('faux-submit-button')
+  const realSubmitButton = document.getElementById('real-submit-button')
+
+
+  fauxSubmitButton.addEventListener('click', () => {
+    let isValid = 0;
+
+    isValid += validateProjectName() ? 0 : 1;
+    isValid += validateProjectCategory() ? 0 : 1;
+    isValid += validateProjectDescription() ? 0 : 1;
+    isValid += validateProjectContractAddress() ? 0 : 1;
+    isValid += validateProjectWebsite() ? 0 : 1;
+    isValid += validateSocials()
+    isValid += validateProjectTelegramId() ? 0 : 1;
+    isValid += validateCheckbox() ? 0 : 1;
+
+    if (isValid > 0) {
+      const formItemWithErr = document.querySelector(".has-error")
+      formItemWithErr?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      return;
+    }
+
+    realSubmitButton.click()
+  })
 }
 
 function replaceFormSubmissionRadioButtons() {
@@ -69,7 +214,7 @@ function replaceFormSubmissionRadioButtons() {
 
 function addSocialsDropdownEventListener() {
   let dropdownOpen = false;
-  let currentSocialIndex
+  let currentSocialIndex = 0
   let visibleFields = 0;
 
   const addButton = document.getElementById('add-option')
@@ -102,7 +247,7 @@ function addSocialsDropdownEventListener() {
     return timeline.play()
   }
 
-  const onAddButtonClick = (event) => {
+  const onAddButtonClick = () => {
     if (currentSocialIndex !== undefined) {
       label.innerText = 'community'
       dropdownItems[currentSocialIndex].style.display = 'none'
@@ -116,7 +261,7 @@ function addSocialsDropdownEventListener() {
   }
 
   const onDropdownItemClick = (event, index, text) => {
-    event.stopPropagation()
+    event?.stopPropagation()
     label.innerText = text
     timeline.reverse();
     currentSocialIndex = index
@@ -151,10 +296,12 @@ function addSocialsDropdownEventListener() {
   document.addEventListener('click', () => {
     timeline.reverse();
   })
+  onAddButtonClick()
 }
 
 function ProjectSubmission() {
   replaceFormSubmissionRadioButtons()
+
   const fileUploadsText = $(".w-file-upload-label .secondary-button-text");
   const uploadInfoText = $(".w-file-upload-info");
   fileUploadsText.map((i, el) => {
@@ -164,10 +311,12 @@ function ProjectSubmission() {
     el.innerText = "NO FILE ATTACHED";
     el.style.color = "var(--greyscale--fg--neutral)";
   });
-  addSocialsDropdownEventListener()
 
+  gsap.to('.error-container', { display: "none" })
+
+  addSocialsDropdownEventListener()
   wordCount();
-  submitForm();
+  attachValidationToForm();
 }
 
 $(document).ready(ProjectSubmission);
