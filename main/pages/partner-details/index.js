@@ -3,13 +3,12 @@ function PartnerDetails() {
   const copyLinks = gsap.utils.toArray('.copy-link')
   const reportBtn = document.querySelector('.report-button')
   const copiedContainer = document.getElementById('copied-container')
-  console.log(copiedContainer)
 
   copyLinks.map(link => {
     link.addEventListener('click', () => {
-      const url = link.getAttribute('external-url')
+      // const url = link.getAttribute('external-url')
       const container = link.children[0]
-      navigator.clipboard.writeText(url).then(() => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
         const icons = gsap.utils.toArray(container.children)
         gsap.timeline()
           .to(copiedContainer, { opacity: 1 })
@@ -38,9 +37,6 @@ function PartnerDetails() {
     const url = `mailto:${recipient}?subject=Report ${partnerName}`
     reportBtn.href = url
   }
-
-
-  console.log('partner-details', copyLinks)
 }
 
 

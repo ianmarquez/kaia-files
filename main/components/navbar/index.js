@@ -83,7 +83,7 @@ const navbarTablet = () => {
     timeline.to(
       drawerItems[idx],
       {
-        height: hasComingSoon ? "8rem" : "auto",
+        height: hasComingSoon ? "4rem" : "auto",
       },
       "<"
     );
@@ -106,7 +106,7 @@ const desktop = () => {
   const menuItems = gsap.utils.toArray(".nav-block.expandable");
   const drawerItems = gsap.utils.toArray(".navbar-drawer-content-div.desktop");
   const drawer = document.querySelector(".navbar-drawer");
-  const DEFAULT_HEIGHT = "15rem"
+  const DEFAULT_HEIGHT = "10rem"
   const heightMap = {
     0: "19rem",
     1: "24rem",
