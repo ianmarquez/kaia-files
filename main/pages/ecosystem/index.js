@@ -7,40 +7,62 @@ function ecosystemGetFormFactor() {
   let response = 'desktop'
 
   const windowWidth = document.body.clientWidth;
-  if (windowWidth <= 479) {
+  if (windowWidth < 479) {
     return 'mobile'
-  } else if (windowWidth <= 767) {
+  } else if (windowWidth < 768) {
     return 'landscape'
-  } else if (windowWidth <= 991) {
+  } else if (windowWidth < 991) {
     return 'tablet'
   }
 
   return response
 }
 
-function formatEcosystemFilterCircles(formFactor) {
+function getOffsetDegreesByFormFactor(formFactor) {
   let circleRadius = 175;
   let centralCircleRadius = 195;
-  let leftBiasMultiplier = 0.9
-  let rightBiasMultiplier = -0.9
+  let leftOffsetDegrees = 100;
+  let centerOffsetDegrees = 199;
+  let rightOffsetDegrees = 45
 
   if (formFactor === 'tablet') {
     circleRadius = 120;
     centralCircleRadius = 150;
-    leftBiasMultiplier = 0.9
-    rightBiasMultiplier = -0.8
+    leftOffsetDegrees = 370
+    centerOffsetDegrees = 210;
+    rightOffsetDegrees = 220
   } else if (formFactor === 'landscape') {
     circleRadius = 120;
     centralCircleRadius = 140;
-    leftBiasMultiplier = 0.7
-    rightBiasMultiplier = -0.8
+    leftOffsetDegrees = 0
+    centerOffsetDegrees = -10;
+    rightOffsetDegrees = 60
   } else if (formFactor === 'mobile') {
     circleRadius = 120;
     centralCircleRadius = 140;
-    leftBiasMultiplier = 0.8
-    rightBiasMultiplier = 1
+    leftOffsetDegrees = 10
+    centerOffsetDegrees = 20;
+    rightOffsetDegrees = 20
   }
 
+  return {
+    circleRadius,
+    centralCircleRadius,
+    leftOffsetDegrees,
+    centerOffsetDegrees,
+    rightOffsetDegrees
+  }
+
+}
+
+function formatEcosystemFilterCircles(formFactor) {
+  const {
+    circleRadius,
+    centralCircleRadius,
+    leftOffsetDegrees,
+    centerOffsetDegrees,
+    rightOffsetDegrees
+  } = getOffsetDegreesByFormFactor(formFactor)
 
   const items = gsap.utils.toArray(".ecosystem-partners-filter-list-item")
   const groupSize = Math.floor(items.length / 3)
@@ -70,7 +92,7 @@ function formatEcosystemFilterCircles(formFactor) {
   });
   secondGroup.forEach(function(item, index) {
     secondGroupDiv.appendChild(item)
-    moveCircle(item, index, 1, secondGroup.length, centralCircleRadius);
+    moveCircle(item, index, 1, secondGroup.length, centralCircleRadius, 'center');
   });
   thirdGroup.forEach(function(item, index) {
     thirdGroupDiv.appendChild(item)
@@ -78,17 +100,19 @@ function formatEcosystemFilterCircles(formFactor) {
   });
 
   function moveCircle(link, index, scale, contentLength, radius, bias) {
-    let multiplier = 1
+    let offsetDegrees = 0
     if (bias) {
       if (bias === 'left')
-        multiplier = leftBiasMultiplier
+        offsetDegrees = leftOffsetDegrees
+      else if (bias === 'right')
+        offsetDegrees = rightOffsetDegrees
       else
-        multiplier = rightBiasMultiplier
+        offsetDegrees = centerOffsetDegrees
     }
     link.style.position = 'absolute'
     const offsetWidth = link.offsetWidth / 2;
     const offsetHeight = link.offsetHeight / 2;
-    const radians = 2 * Math.PI * ((index / contentLength) * multiplier);
+    const radians = (2 * Math.PI * (index / contentLength)) + offsetDegrees;
     x = -(Math.sin(radians) * radius * scale);
     y = -(Math.cos(radians) * radius * scale);
     link.style.top = (x + radius - offsetHeight) + 'px'
