@@ -165,7 +165,6 @@ function validateCheckbox() {
     return true;
   }
 
-  console.log(errorDiv)
   gsap.to(errorDiv, {
     display: 'flex'
   })
@@ -212,13 +211,57 @@ function replaceFormSubmissionRadioButtons() {
   })
 }
 
+function addCategoryDropdownListener() {
+  let dropdownOpen = false;
+
+  const inputControl = document.getElementById('project-category')
+  const projectCategoryList = inputControl.querySelector('.project-category-select-wrapper')
+  const radioButtons = gsap.utils.toArray(inputControl.querySelectorAll('.select-item-radio'))
+  let dropdown = document.getElementById('category-dropdown')
+  const [label, icon] = gsap.utils.toArray(dropdown.children)
+
+  const timeline = gsap.timeline({ paused: true })
+    .to(projectCategoryList, {
+      height: '30vh',
+      duration: 0.3,
+      zIndex: 5
+    })
+    .to(icon, {
+      rotate: 180
+    }, "<")
+
+  const radioButtonClick = (event, radio) => {
+    event.stopPropagation()
+    const radioLabel = radio.children[1]
+    label.innerText = radioLabel.innerText
+    timeline.reverse();
+    dropdownOpen = false
+  }
+
+  const onDropdownClick = (event) => {
+    event.stopPropagation()
+    if (dropdownOpen) {
+      dropdownOpen = false
+      return timeline.reverse()
+    }
+    dropdownOpen = true
+    return timeline.play()
+  }
+
+
+  radioButtons.forEach(radio => {
+    radio.children[0].addEventListener('click', (event) => radioButtonClick(event, radio))
+  })
+  dropdown.addEventListener('click', onDropdownClick)
+}
+
 function addSocialsDropdownEventListener() {
   let dropdownOpen = false;
   let currentSocialIndex = 0
   let visibleFields = 0;
 
   const addButton = document.getElementById('add-option')
-  const dropdown = document.querySelector('.text-input-field.dropdown')
+  const dropdown = document.getElementById('community-dropdown')
   const [dropdownItemsContainer, label, icon] = gsap.utils.toArray(dropdown.children)
   const [dropdownItemList] = gsap.utils.toArray(dropdownItemsContainer.children)
   const inputs = gsap.utils.toArray(document.querySelector('.socials-input-div').children)
@@ -312,9 +355,8 @@ function ProjectSubmission() {
     el.style.color = "var(--greyscale--fg--neutral)";
   });
 
-  gsap.to('.error-container', { display: "none" })
-
   addSocialsDropdownEventListener()
+  addCategoryDropdownListener()
   wordCount();
   attachValidationToForm();
 }

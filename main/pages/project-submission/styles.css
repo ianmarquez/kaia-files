@@ -1,5 +1,6 @@
 .select-radio:checked ~ .select-label {
   background-color: #144625;
+  color: var(--brand--fg--neutral);
 }
 
 textarea {
@@ -12,4 +13,12 @@ textarea {
 
 .button-icon-wrapper {
   width: fit-content;
+}
+
+.w-file-upload-success {
+  max-width: 100%;
+}
+
+.w-file-upload-file-name {
+  white-space: nowrap;
 }
