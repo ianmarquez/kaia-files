@@ -139,6 +139,13 @@ function validateProjectTelegramId() {
   return validateValidUrl(formControl)
 }
 
+function validateProjectLogo() {
+  const formControl = document.getElementById('project-logo')
+  const requireCheck = validateFileRequired(formControl)
+  if (!requireCheck) return requireCheck
+  return validateImageDimension(formControl, 1000, 1000)
+}
+
 function validateSocials() {
   let isValid = 0
   const socialsFormControls = gsap.utils.toArray('.socials-input-container')
@@ -173,14 +180,76 @@ function validateCheckbox() {
   return false;
 }
 
+async function validateImageDimension(formControl, expectedWidth, expectedHeight) {
+  const _URL = window.URL || window.webkitURL
+  const fileUploadInput = formControl.querySelector('.w-file-upload-input')
+  const errorDiv = formControl.querySelector('.error-container')
+  const [_, required] = gsap.utils.toArray(errorDiv.children)
+
+  function onError() {
+    gsap.timeline()
+      .to(errorDiv, {
+        display: 'flex'
+      })
+      .to(required, {
+        display: 'none'
+      })
+    $(formControl).addClass('has-error')
+  }
+
+  const isValid = await (new Promise((resolve) => {
+    const img = new Image();
+    const objectUrl = _URL.createObjectURL(fileUploadInput.files[0])
+    img.onload = function() {
+      console.log(this.width, this.height)
+      resolve((expectedWidth <= this.width) && (expectedHeight <= this.height))
+    }
+    img.src = objectUrl
+  }))
+
+  if (isValid) {
+    gsap.to(errorDiv, {
+      display: 'none'
+    })
+    $(formControl).removeClass('has-error')
+  } else {
+    onError()
+  }
+  console.log(isValid)
+
+
+  return isValid
+}
+
+function validateFileRequired(formControl) {
+  const errorDiv = formControl.querySelector('.error-container')
+  const fileUploadInput = formControl.querySelector('.w-file-upload-input')
+  if (fileUploadInput.files && fileUploadInput.files.length > 0) {
+    gsap.to(errorDiv, {
+      display: 'none'
+    })
+    $(formControl).removeClass('has-error')
+    return true;
+  }
+  gsap.timeline()
+    .to(errorDiv, {
+      display: 'flex'
+    }).to(errorDiv.children, {
+      display: 'flex'
+    }, '<')
+  $(formControl).addClass('has-error')
+  return false
+}
+
 function attachValidationToForm() {
   const fauxSubmitButton = document.getElementById('faux-submit-button')
   const realSubmitButton = document.getElementById('real-submit-button')
 
 
-  fauxSubmitButton.addEventListener('click', () => {
+  fauxSubmitButton.addEventListener('click', async () => {
     let isValid = 0;
 
+    isValid += await validateProjectLogo() ? 0 : 1;
     isValid += validateProjectName() ? 0 : 1;
     isValid += validateProjectCategory() ? 0 : 1;
     isValid += validateProjectDescription() ? 0 : 1;
