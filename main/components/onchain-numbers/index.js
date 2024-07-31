@@ -1,9 +1,4 @@
 function OnChainNumbers() {
-  function randomIntFromInterval(min, max) {
-    // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
   const headings = gsap.utils.toArray(".onchain-heading");
   const imageContainers = gsap.utils.toArray(".onchain-image-container");
   const MAPPING = [
@@ -58,17 +53,68 @@ function OnChainNumbers() {
       );
     });
   });
+  const display1 = []
+  const display2 = []
+  const display3 = []
+  const display4 = []
 
-  imageContainers.map((imageContainer) => {
-    const imageTimeline = gsap.timeline({});
-    imageTimeline.to(imageContainer.children, {
+  imageContainers.forEach((imageContainer) => {
+    const children = gsap.utils.toArray(imageContainer.children)
+    display1.push(children[0])
+    display2.push(children[1])
+    display3.push(children[2])
+    display4.push(children[3])
+  })
+
+  const animateTimeline = gsap.timeline({
+    repeat: -1,
+  })
+  animateTimeline.timeScale(0.5)
+  const timeImageIsVisible = 1.5
+
+  animateTimeline
+    .to(display1, timeImageIsVisible, {
       opacity: 1,
       ease: "power3.out",
-      // stagger: randomIntFromInterval(5, 8),
-      repeat: -1,
-      yoyo: true,
-    });
-  });
+      stagger: 0.2,
+    })
+    .to(display2, timeImageIsVisible, {
+      opacity: 1,
+      ease: "power3.out",
+      stagger: 0.2,
+    })
+    .to(display1, timeImageIsVisible, {
+      opacity: 0,
+      ease: "power3.out",
+      stagger: 0.2,
+    }, "<")
+    .to(display3, timeImageIsVisible, {
+      opacity: 1,
+      ease: "power3.out",
+      stagger: 0.2,
+    })
+    .to(display2, timeImageIsVisible, {
+      opacity: 0,
+      ease: "power3.out",
+      stagger: 0.2,
+    }, "<")
+    .to(display4, timeImageIsVisible, {
+      opacity: 1,
+      ease: "power3.out",
+      stagger: 0.2,
+    }).to(display3, timeImageIsVisible, {
+      opacity: 0,
+      ease: "power3.out",
+      stagger: 0.2,
+    }, "<")
+    .to(display4, timeImageIsVisible, {
+      opacity: 0,
+      ease: "power3.out",
+      stagger: 0.2,
+    })
+    .to(display1, timeImageIsVisible, {
+      opacity: 1,
+    }, "<")
 }
 
 $(document).ready(OnChainNumbers);
