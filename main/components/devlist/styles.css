@@ -29,3 +29,17 @@ input[type="radio"] {
 .w-container:after {
 	content: none;
 }
+
+#developer-form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing--3);
+}
+
+.developer-radio-filter-wrapper {
+	position: relative;
+}
+
+.developer-tools-content-wrapper div {
+	display: none;
+}

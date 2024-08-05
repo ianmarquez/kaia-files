@@ -1,4 +1,4 @@
-function Devhubs() {
+function Devlist() {
 	const rightArrow = $(".right-arrow-filter-wrapper");
 	const leftArrow = $(".left-arrow-filter-wrapper");
 	const filterList = $(".developer-filter-collection-list");
@@ -58,4 +58,4 @@ function Devhubs() {
 	}
 }
 
-document.addEventListener("DOMContentLoaded", Devhubs);
+document.addEventListener("DOMContentLoaded", Devlist);

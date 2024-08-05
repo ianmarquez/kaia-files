@@ -1,4 +1,4 @@
-let openedAccordionIdx = 0;
+let openedPillIdx = 0;
 
 function hideAccordionContent(pill) {
 	const [header, content] = gsap.utils.toArray(pill.children);
@@ -49,7 +49,7 @@ function showAccordionContent(pill) {
 }
 
 function resetAccordion() {
-	openedAccordionIdx = 0;
+	openedPillIdx = 0;
 	const pills = gsap.utils.toArray(".horizontal-pill-container");
 	pills.map((pill) => {
 		const [header, content] = gsap.utils.toArray(pill.children);
@@ -87,15 +87,15 @@ function Accordion() {
 		};
 
 		pillContainer.onclick = () => {
-			if (idx !== openedAccordionIdx) {
+			if (idx !== openedPillIdx) {
 				showAccordionContent(pillContainer);
-				if (openedAccordionIdx !== null) {
-					hideAccordionContent(pillsContainer[openedAccordionIdx]);
+				if (openedPillIdx !== null) {
+					hideAccordionContent(pillsContainer[openedPillIdx]);
 				}
-				openedAccordionIdx = idx;
+				openedPillIdx = idx;
 			} else {
 				hideAccordionContent(pillContainer);
-				openedAccordionIdx = null;
+				openedPillIdx = null;
 			}
 		};
 	});
