@@ -1,12 +1,41 @@
 var DateTime = luxon.DateTime;
 let isEventMobile = false;
 let isEventDesktop = false;
-console.log(luxon);
-console.log(moment);
+window.lightBoxIndex;
 
 const eventBodyAnimation = () => {
   $("#all-filter").detach().prependTo(".events-filter-collection-list");
 };
+
+function closeOverlay() {
+  const videos = gsap.utils.toArray(".video-wrapper")
+  const videoContainer = videos[window.lightBoxIndex]
+  videoContainer.style.opacity = "0"
+  videoContainer.style.zIndex = "-1"
+}
+
+function attachWatchButtonClickListener() {
+  const videosSlide = gsap.utils.toArray('.featured-videos-collection-item')
+  const videos = gsap.utils.toArray(".video-wrapper")
+  console.log(videosSlide)
+  videosSlide.forEach((videoSlideDiv, idx) => {
+    const buttonContainer = videoSlideDiv.querySelector(".play-button-container")
+    const videoContainer = videos[idx]
+
+    const closeButton = videoContainer.querySelector(".close-button-container")
+
+    closeButton.addEventListener("click", () => {
+      closeOverlay(videoContainer)
+    })
+
+    buttonContainer.addEventListener("click", () => {
+      window.lightBoxIndex = idx
+      videoContainer.style.opacity = "100"
+      videoContainer.style.zIndex = "100"
+    })
+
+  })
+}
 
 function AnimateDropdown() {
   let dropdownOpen = false;
@@ -78,10 +107,10 @@ function AttachEventEventsOnDOMLifecycle() {
   listHoverEvents();
   copyLink();
   shareLinks();
-  hideVideo();
   videoLinks();
   formatCardDateTime();
   textEmphasis();
+  attachWatchButtonClickListener()
 
   setTimeout(() => {
     const pageButtons = gsap.utils.toArray(".list-pagination-page-button");
@@ -187,7 +216,7 @@ function switchTab(tabTypeSelected) {
 
 function featuredVideos() {
   setTimeout(() => {
-    var swiper = new Swiper(".featured-videos-swiper", {
+    new Swiper(".featured-videos-swiper", {
       spaceBetween: 30,
       loop: true,
       pagination: {
@@ -396,22 +425,6 @@ function listHoverEvents() {
   });
 }
 
-function hideVideo() {
-  const videoWrapper = gsap.utils.toArray(".video-wrapper");
-
-  videoWrapper.map((video) => {
-    const videoPlatform = video.getAttribute("video-src");
-
-    if (videoPlatform === "Youtube") {
-      video.children[1].style.display = "none";
-    } else if (videoPlatform === "X") {
-      video.children[0].style.display = "none";
-    } else {
-      video.children[0].style.display = "none";
-      video.children[1].style.display = "none";
-    }
-  });
-}
 
 function videoLinks() {
   const videoLinkOut = gsap.utils.toArray(".video-link-out");
@@ -493,3 +506,11 @@ function textEmphasis() {
 $(window).on("resize", AttachEventEventsOnDOMLifecycle);
 
 $(document).ready(AttachEventEventsOnDOMLifecycle);
+
+$(document).keyup(function(e) {
+  if (e.key === "Escape") {
+    if (window.lightBoxIndex !== undefined) {
+      closeOverlay()
+    }
+  }
+});
