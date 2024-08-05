@@ -20,7 +20,6 @@ function showAccordionContent(item) {
 	const iconContainer = header.children[1];
 	const verticalBar = iconContainer.children[1];
 	const headerText = header.children[0].children[0];
-	console.log(headerText);
 	const showTimeline = gsap.timeline({
 		onStart: function () {
 			gsap.set(item, { clearProps: "flex" });
@@ -81,9 +80,9 @@ function Accordion() {
 	});
 }
 
-let previousWidth = $(window).width();
+let accordionPreviousWidth = window.innerWidth;
 
-$(document).ready(() => {
-	previousWidth = $(window).width();
+window.addEventListener("DOMContentLoaded", () => {
+	accordionPreviousWidth = window.innerWidth;
 	Accordion();
 });

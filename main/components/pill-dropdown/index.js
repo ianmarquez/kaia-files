@@ -1,6 +1,6 @@
 let openedPillIdx = 0;
 
-function hideAccordionContent(pill) {
+function hidePillAccordionContent(pill) {
 	const [header, content] = gsap.utils.toArray(pill.children);
 	const iconContainer = header.children[1];
 	const verticalBar = iconContainer.children[1];
@@ -22,7 +22,7 @@ function hideAccordionContent(pill) {
 		.to(verticalBar, { rotation: 90 }, "<");
 }
 
-function showAccordionContent(pill) {
+function showPillAccordionContent(pill) {
 	const [header, content] = gsap.utils.toArray(pill.children);
 	const iconContainer = header.children[1];
 	const verticalBar = iconContainer.children[1];
@@ -48,7 +48,7 @@ function showAccordionContent(pill) {
 		.to(content.children, { opacity: 1 });
 }
 
-function resetAccordion() {
+function resetPillAccordion() {
 	openedPillIdx = 0;
 	const pills = gsap.utils.toArray(".horizontal-pill-container");
 	pills.map((pill) => {
@@ -62,14 +62,15 @@ function resetAccordion() {
 		gsap.set(verticalBar, { clearProps: "all" });
 		gsap.set(header, { clearProps: "all" });
 	});
-	Accordion();
+	PillAccordion();
 }
 
-function Accordion() {
+function PillAccordion() {
+	console.log("Accordi22444on");
 	const pillsContainer = gsap.utils.toArray(".horizontal-pill-container");
 	pillsContainer.forEach((pillContainer, idx) => {
 		if (idx !== 0) {
-			hideAccordionContent(pillContainer);
+			hidePillAccordionContent(pillContainer);
 		}
 	});
 
@@ -88,30 +89,30 @@ function Accordion() {
 
 		pillContainer.onclick = () => {
 			if (idx !== openedPillIdx) {
-				showAccordionContent(pillContainer);
+				showPillAccordionContent(pillContainer);
 				if (openedPillIdx !== null) {
-					hideAccordionContent(pillsContainer[openedPillIdx]);
+					hidePillAccordionContent(pillsContainer[openedPillIdx]);
 				}
 				openedPillIdx = idx;
 			} else {
-				hideAccordionContent(pillContainer);
+				hidePillAccordionContent(pillContainer);
 				openedPillIdx = null;
 			}
 		};
 	});
 }
 
-let previousWidth = $(window).width();
+let pillPreviousWidth = $(window).width();
 
 $(window).on("resize", () => {
 	let currentWidth = $(window).width();
-	if (currentWidth !== previousWidth) {
-		window.resizeTimeout = setTimeout(resetAccordion, 500);
-		previousWidth = currentWidth;
+	if (currentWidth !== pillPreviousWidth) {
+		window.resizeTimeout = setTimeout(resetPillAccordion, 500);
+		pillPreviousWidth = currentWidth;
 	}
 });
 
 $(document).ready(() => {
-	previousWidth = $(window).width();
-	Accordion();
+	pillPreviousWidth = $(window).width();
+	PillAccordion();
 });
