@@ -201,7 +201,6 @@ async function validateImageDimension(formControl, expectedWidth, expectedHeight
     const img = new Image();
     const objectUrl = _URL.createObjectURL(fileUploadInput.files[0])
     img.onload = function() {
-      console.log(this.width, this.height)
       resolve((expectedWidth <= this.width) && (expectedHeight <= this.height))
     }
     img.src = objectUrl
@@ -215,9 +214,6 @@ async function validateImageDimension(formControl, expectedWidth, expectedHeight
   } else {
     onError()
   }
-  console.log(isValid)
-
-
   return isValid
 }
 

@@ -17,7 +17,6 @@ function closeOverlay() {
 function attachWatchButtonClickListener() {
   const videosSlide = gsap.utils.toArray('.featured-videos-collection-item')
   const videos = gsap.utils.toArray(".video-wrapper")
-  console.log(videosSlide)
   videosSlide.forEach((videoSlideDiv, idx) => {
     const buttonContainer = videoSlideDiv.querySelector(".play-button-container")
     const videoContainer = videos[idx]

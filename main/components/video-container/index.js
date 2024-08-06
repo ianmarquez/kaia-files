@@ -12,7 +12,6 @@ function videoContainer() {
       end: 'top center',
     }
   })
-  console.log(iframe)
 }
 
 $(document).ready(videoContainer)

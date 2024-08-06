@@ -150,7 +150,6 @@ const desktop = () => {
   };
 
   const openAnimation = (menuItem, idx) => {
-    console.log('animate')
     isAnimating = true;
     const timeline = gsap.timeline();
     timeline.timeScale(5);

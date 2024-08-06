@@ -26,7 +26,7 @@ function PartnerDetails() {
           }, '<')
           .to(copiedContainer, { opacity: 0 })
       }, (err) => {
-        console.log(err)
+        console.error(err)
       })
     })
   })
